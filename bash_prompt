@@ -1,0 +1,57 @@
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+	export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+	export TERM=xterm-256color
+fi
+
+tput sgr0
+
+BLACK=$(tput setaf 0)
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+YELLOW=$(tput setaf 3)
+BLUE=$(tput setaf 4)
+MAGENTA=$(tput setaf 5)
+CYAN=$(tput setaf 6)
+WHITE=$(tput setaf 7)
+
+BOLD=$(tput bold)
+RESET=$(tput sgr0)
+
+export BLACK
+export RED
+export GREEN
+export YELLOW
+export BLUE
+export MAGENTA
+export CYAN
+export WHITE
+export BOLD
+export RESET
+
+function parse_git_dirty() {
+	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+}
+
+function parse_git_branch() {
+	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/" | awk '{print "  [git: "$1"]" }'
+}
+
+function parse_svn_branch() { 
+	parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' -e "s/$/$(parse_svn_dirty)/" | awk '{print "  [svn: "$1"] " }'
+}
+
+function parse_svn_url() {
+  svn info 2>/dev/null | sed -ne 's#^URL: ##p'
+}
+
+function parse_svn_repository_root() {
+  svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
+}
+
+function parse_svn_dirty() {
+	[[ $(svn status 2> /dev/null | tail -n1) != "" ]] && echo "*"
+}
+
+# PS1="\[${BOLD}${RED}\]\u \[$RESET\]\[$BLACK\]at \[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]in \[$BOLD\]\[$GREEN\]\w\[$BLACK\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\$([[ -n \$(svn info 2> /dev/null) ]] && echo \" on \")\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${RED}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"

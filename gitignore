@@ -1,0 +1,111 @@
+# Folder view configuration files
+.DS_Store
+Desktop.ini
+
+# Thumbnail cache files
+._*
+Thumbs.db
+Icon?
+
+# Files that might appear on external disks
+.Spotlight-V100
+.Trashes
+
+# Other version control system files
+.svn
+
+# Latex auxiliary files
+*.bkp
+.texpadtmp
+*.texshop
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.fdb_latexmk
+*.glg
+*.glo
+*.gls
+*.idx
+*.ilg
+*.ind
+*.ist
+*.lof
+*.log
+*.lot
+*.nav
+*.nlo
+*.out
+*.pdfsync
+*.ps
+*.snm
+*.synctex.gz
+*.toc
+*.vrb
+*.maf
+*.mtc
+*.mtc0
+
+# Java
+*.class
+*.jar
+*.war
+*.ear
+
+# C/C++
+*.slo
+*.lo
+*.o
+*.so
+*.lai
+*.la
+*.a
+*.lib
+*.dll
+*.so
+*.exe
+*.out
+
+# Rails
+*.rbc
+*.sassc
+.sass-cache
+capybara-*.html
+.rspec
+/.bundle
+/vendor/bundle
+/log/*
+/tmp/*
+/db/*.sqlite3
+/public/system/*
+/coverage/
+/spec/tmp/*
+**.orig
+rerun.txt
+pickle-email-*.html
+
+# Ruby
+*.gem
+*.rbc
+.bundle
+.config
+coverage
+InstalledFiles
+lib/bundler/man
+pkg
+rdoc
+spec/reports
+test/tmp
+test/version_tmp
+tmp
+.yardoc
+_yardoc
+doc/
+
+# PHP/Zend
+INSTALL.txt
+LICENSE.txt
+README.txt
+demos/
+extras/documentation
+

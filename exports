@@ -1,0 +1,19 @@
+# Make vim the default editor
+export EDITOR="vim"
+
+# Don’t clear the screen after quitting a manual page
+export MANPAGER="less -X"
+
+# Highlight section titles in manual pages
+export LESS_TERMCAP_md="$GREEN"
+
+# Larger bash history (allow 2000 entries; default is 500)
+export HISTSIZE=2000
+export HISTFILESIZE=$HISTSIZE
+export HISTCONTROL=ignoredups
+
+# Make some commands not show up in history
+export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
+
+# Path
+export PATH=$HOME/Dropbox/Scripts:/opt/local/bin:/opt/local/sbin:$PATH
