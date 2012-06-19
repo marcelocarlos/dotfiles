@@ -16,15 +16,3 @@ function realpath() {
 }
 export -f realpath
 
-function divertisgprinting() {
-	LOCALUSER=mcc
-	ISGUSER=puai051
-	echo "diverting from $LOCALUSER to $ISGUSER..."
-	sudo print_divert $LOCALUSER $ISGUSER
-}
-
-function divertisgprintingstatus() {
-	echo "there should be something like this: \"00001 divert 50000 tcp from any to any dst-port 631 out\""
-	echo  
-	sudo ipfw list
-}

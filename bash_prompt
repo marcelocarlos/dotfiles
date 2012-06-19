@@ -1,3 +1,9 @@
+# Created by Marcelo C. Carlos
+# Modified setup from https://github.com/mathiasbynens/dotfiles
+#
+# This version includes information about svn and git status when you are in a version controlled folder
+#
+
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
 	export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then

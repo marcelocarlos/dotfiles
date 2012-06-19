@@ -1,3 +1,6 @@
+# Created by Marcelo C. Carlos
+# Modified setup from https://github.com/mathiasbynens/dotfiles
+
 # Make vim the default editor
 export EDITOR="vim"
 
