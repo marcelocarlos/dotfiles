@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source dotfiles/functions
+source functions
 
 function linkIt() {
 	echo -ne "Linking dotfiles ... " 
