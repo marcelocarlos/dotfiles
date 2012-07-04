@@ -45,6 +45,7 @@ Icon?
 *.maf
 *.mtc
 *.mtc0
+*.tex~
 
 # Java
 *.class
