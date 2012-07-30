@@ -4,7 +4,7 @@ source functions
 
 function linkIt() {
 	echo -ne "Linking dotfiles ... " 
-	for dotfile in $(/bin/ls -1); do
+	for dotfile in $(/bin/ls -1 | grep -v README.md | grep -v linkfiles.sh); do
 		FOLDER=$(realpath $dotfile)
 		ln -s "$FOLDER/$dotfile" "$HOME/.$dotfile"
 	done
