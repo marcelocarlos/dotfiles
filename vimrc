@@ -31,6 +31,7 @@ endif
 
 " Enable line numbers
 set number
+" toggle for show/hide line numbers
 :nmap <f3> :set invnumber<CR>
 
 " Enable syntax highlighting
