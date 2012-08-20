@@ -7,6 +7,18 @@ alias ...="cd ../.."
 alias -- -="cd -"
 alias la="ls -Gla"
 alias lsd='ls -l | grep "^d"'
+alias ll='ls -la'
+
+# Colorize grep command output 
+alias grep='grep --color=auto'
+alias egrep='egrep --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# Always resume wget
+alias wget='wget -c'
+
+# colorize diff 
+alias diff='colordiff'
 
 # Shortcuts
 alias dr="cd ~/Dropbox"
