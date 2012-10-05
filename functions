@@ -25,5 +25,5 @@ function cleantexcheck() {
 }
 
 function proverifaddcss() {
-	cp /usr/local/proverif/cssproverif.css .
+	cp /usr/local/proverif/cssproverif.css $1
 }
