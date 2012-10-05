@@ -60,4 +60,4 @@ function parse_svn_dirty() {
 }
 
 # PS1="\[${BOLD}${RED}\]\u \[$RESET\]\[$BLACK\]at \[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]in \[$BOLD\]\[$GREEN\]\w\[$BLACK\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\$([[ -n \$(svn info 2> /dev/null) ]] && echo \" on \")\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
-PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${RED}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${BLUE}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"

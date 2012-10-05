@@ -24,5 +24,6 @@ function cleantexcheck() {
 	find . \( -name "*.bkp" -or -name ".texpadtmp" -or -name "*.texshop" -or -name "*.aux" -or -name "*.bbl" -or -name "*.blg" -or -name "*.dvi" -or -name "*.fdb_latexmk" -or -name "*.glg" -or -name "*.glo" -or -name "*.gls" -or -name "*.idx" -or -name "*.ilg" -or -name "*.ind" -or -name "*.ist" -or -name "*.lof" -or -name "*.log" -or -name "*.lot" -or -name "*.nav" -or -name "*.nlo" -or -name "*.out" -or -name "*.pdfsync" -or -name "*.ps" -or -name "*.snm" -or -name "*.synctex.gz" -or -name "*.toc" -or -name "*.vrb" -or -name "*.maf" -or -name "*.mtc" -or -name "*.mtc0" -or -name "*.tex~" \)
 }
 
-
-
+function proverifaddcss() {
+	cp /usr/local/proverif/cssproverif.css .
+}
