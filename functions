@@ -25,5 +25,27 @@ function cleantexcheck() {
 }
 
 function proverifaddcss() {
-	cp /usr/local/proverif/cssproverif.css $1
+	cp /usr/local/proverif/cssproverif.css "${1}"
+}
+
+function proverifhtml() {
+	if [ $# -ne 1 ]; then
+		echo
+   		echo "Usage: pv.sh <source-file>"
+    	echo 
+	else
+    	SRC_FILE=$1
+	fi
+
+	filename=$(basename "$SRC_FILE")
+	extension="${filename##*.}"
+	filename="${filename%.*}"
+
+	src_dir=$(dirname "${SRC_FILE}")
+	OUTPUT_HTML="${src_dir}/${filename}-output-html"
+
+	rm -rf "${OUTPUT_HTML}"
+	mkdir "${OUTPUT_HTML}"
+    proverifaddcss "${OUTPUT_HTML}"
+	proverif -html "${OUTPUT_HTML}" -color "${SRC_FILE}"
 }
