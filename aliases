@@ -88,3 +88,6 @@ alias hide-all-hidden-files-finder="defaults write com.apple.Finder AppleShowAll
 # Hide/show all desktop icons (useful when presenting)
 alias hide-desktop-icons="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
 alias show-desktop-icons="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
+
+# Check TRIM status
+alias trim-status="system_profiler SPSerialATADataType | grep TRIM"
