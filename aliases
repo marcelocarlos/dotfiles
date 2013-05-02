@@ -8,6 +8,7 @@ alias -- -="cd -"
 alias la="ls -Gla"
 alias lsd='ls -l | grep "^d"'
 alias ll='ls -la'
+alias lh='ls -lh'
 
 # Colorize grep command output 
 alias grep='grep --color=auto'

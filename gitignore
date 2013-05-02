@@ -43,8 +43,8 @@ Icon?
 *.toc
 *.vrb
 *.maf
-*.mtc
-*.mtc0
+*.mtc*
+*.ptc*
 *.tex~
 
 # Java

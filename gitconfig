@@ -22,6 +22,8 @@
 	# attributesfile = ~/.gitattributes
 	# Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
 	whitespace = space-before-tab,indent-with-non-tab,trailing-space
+	# allowing line wrapping when using diff
+	pager = less -r
 
 [color]
   ui = auto
@@ -58,3 +60,5 @@
 	name = Marcelo Carlos
 	email = me@marcelocarlos.com
 
+[push]
+	default = simple

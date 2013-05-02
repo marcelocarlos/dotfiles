@@ -1,6 +1,11 @@
 " Configuration file for vim
 set modelines=0		" CVE-2007-2438
 
+" Use the OS clipboard by default (on versions compiled with `+clipboard`)
+set clipboard=unnamed
+" set clipboard+=unnamed
+" set clipboard=autoselect
+
 " Toggle for auto-indenting
 set pastetoggle=<F2>
 
@@ -81,3 +86,4 @@ filetype plugin on
 
 " Save a file as root when using :W
 command W w !sudo tee % >/dev/null
+

@@ -42,10 +42,10 @@ function proverifhtml() {
 	filename="${filename%.*}"
 
 	src_dir=$(dirname "${SRC_FILE}")
-	OUTPUT_HTML="${src_dir}/${filename}-output-html"
+	OUTPUT_HTML="${src_dir}/output/${filename}"
 
 	rm -rf "${OUTPUT_HTML}"
-	mkdir "${OUTPUT_HTML}"
+	mkdir -p "${OUTPUT_HTML}"
     proverifaddcss "${OUTPUT_HTML}"
 	proverif -html "${OUTPUT_HTML}" -color "${SRC_FILE}"
 }
