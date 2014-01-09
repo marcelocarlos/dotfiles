@@ -11,6 +11,8 @@
 	ci = commit
 	# Checkout
 	co = checkout 
+	# remote show origin 
+	url = remote show origin
 
 [apply]
 	# Detect whitespace errors when applying a patch

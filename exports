@@ -19,4 +19,4 @@ export HISTCONTROL=ignoredups
 #export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
 # Path
-export PATH=$HOME/Dropbox/Scripts:/opt/local/bin:/opt/local/sbin:/usr/local/bin:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:$PATH

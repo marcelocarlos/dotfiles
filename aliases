@@ -10,7 +10,7 @@ alias lsd='ls -l | grep "^d"'
 alias ll='ls -la'
 alias lh='ls -lh'
 
-# Colorize grep command output 
+# Colorize grep command output
 alias grep='grep --color=auto'
 alias egrep='egrep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -18,17 +18,21 @@ alias fgrep='fgrep --color=auto'
 # Always resume wget
 alias wget='wget -c'
 
-# colorize diff 
+# colorize diff
 alias diff='colordiff'
+
+# replacing the default rm to a rm that moves files to trash
+#alias rm='rmtrash'
 
 # Shortcuts
 alias dr="cd ~/Dropbox"
 alias dw="cd ~/Dropbox/Working"
 alias dwp="cd ~/Dropbox/Working/Papers"
 alias ds="cd ~/Dropbox/Shared"
-alias wj="cd ~/Workspaces/eclipse/java/"
-alias wp="cd ~/Workspaces/eclipse/php/"
-alias wr="cd ~/Workspaces/eclipse/rails/"
+alias th="cd ~/Dropbox/Working/Thesis/"
+alias thd="cd ~/Dropbox/Working/Thesis/document"
+alias thp="cd ~/Dropbox/Working/Thesis/proverif"
+alias tho="cd ~/Dropbox/Working/Thesis/other"
 
 # Git
 alias gt='git status '
@@ -52,16 +56,13 @@ fi
 alias sudo='sudo '
 
 # Get OS X Software Updates, update Homebrew itself, and upgrade installed Homebrew packages
-alias update-all='sudo softwareupdate -i -a; brew update; brew upgrade'
+alias update-all-software='sudo softwareupdate -i -a; brew update; brew upgrade'
 
-# IP, Whois, etc 
+# IP, Whois, etc
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 alias whois="whois -h whois-servers.net"
-
-# Flush Directory Service cache
-alias flush="dscacheutil -flushcache"
 
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
@@ -80,7 +81,7 @@ type -t hd > /dev/null || alias hd="hexdump -C"
 type -t md5sum > /dev/null || alias md5sum="md5"
 
 # Recursively delete `.DS_Store` files
-alias cleanup="find . -type f -name '*.DS_Store' -ls -delete"
+alias cleanup-folder="find . -type f -name '*.DS_Store' -ls -delete"
 
 # Show/hide hidden files in Finder
 alias show-all-hidden-files-finder="defaults write com.apple.Finder AppleShowAllFiles -bool true && killall Finder"
@@ -91,4 +92,4 @@ alias hide-desktop-icons="defaults write com.apple.finder CreateDesktop -bool fa
 alias show-desktop-icons="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
 
 # Check TRIM status
-alias trim-status="system_profiler SPSerialATADataType | grep TRIM"
+alias trim-status="system_profiler SPSerialATADataType | grep -i TRIM"

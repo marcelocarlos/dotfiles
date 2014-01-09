@@ -49,3 +49,4 @@ function proverifhtml() {
     proverifaddcss "${OUTPUT_HTML}"
 	proverif -html "${OUTPUT_HTML}" -color "${SRC_FILE}"
 }
+

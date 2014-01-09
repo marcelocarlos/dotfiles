@@ -3,15 +3,11 @@
 source functions
 
 function linkIt() {
-	echo -ne "Linking dotfiles ... " 
-	for dotfile in $(/bin/ls -1 | grep -v README.md | grep -v linkfiles.sh); do
+	echo -ne "Linking dotfiles ... "
+	for dotfile in $(/bin/ls -1B -I *.sh -I *.md); do
 		FOLDER=$(realpath $dotfile)
 		ln -s "$FOLDER/$dotfile" "$HOME/.$dotfile"
 	done
-	echo "[OK]"
-
-	echo -ne "Linking templates ... " 
-	ln -s $PWD"/templates" $HOME"/Documents/Templates" 
 	echo "[OK]"
 }
 
@@ -19,8 +15,8 @@ read -p "This may overwrite existing files in your home directory. Are you sure?
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
 	linkIt
-else
-	return 100
 fi
 unset linkIt
+
+# apply the changes
 source ~/.bash_profile

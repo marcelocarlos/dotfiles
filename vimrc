@@ -45,8 +45,8 @@ syntax on
 " Highlight current line
 "  set cursorline
 
-" Make tabs as wide as two spaces
-set tabstop=4
+" Make tabs as wide as four spaces
+set tabstop=4 shiftwidth=4 expandtab
 
 " Highlight searches
 set hlsearch
