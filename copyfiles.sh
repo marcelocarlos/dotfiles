@@ -2,14 +2,11 @@
 
 source functions
 
-function linkIt() {
+function copyIt() {
 	echo -ne "Linking dotfiles ... "
-	for dotfile in $(/bin/ls -1 | grep -v .sh | grep -v .md); do
+	for dotfile in $(/bin/ls -1B -I *.sh -I *.md); do
 		FOLDER=$(realpath $dotfile)
-		if [ -f "$HOME/.$dotfile" ]; then
-			rm "$HOME/.$dotfile"
-		fi
-		ln -s "$FOLDER/$dotfile" "$HOME/.$dotfile"
+		cp -f "$FOLDER/$dotfile" "$HOME/.$dotfile"
 	done
 	echo "[OK]"
 }
@@ -17,9 +14,9 @@ function linkIt() {
 read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " -n 1
 echo
 if [[ $REPLY =~ ^[Yy]$ ]]; then
-	linkIt
+	copyIt
 fi
-unset linkIt
+unset copyIt
 
 # apply the changes
 source ~/.bash_profile

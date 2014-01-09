@@ -10,8 +10,8 @@
 	# Commit
 	ci = commit
 	# Checkout
-	co = checkout 
-	# remote show origin 
+	co = checkout
+	# remote show origin
 	url = remote show origin
 
 [apply]
@@ -61,6 +61,3 @@
 [user]
 	name = Marcelo Carlos
 	email = me@marcelocarlos.com
-
-[push]
-	default = simple

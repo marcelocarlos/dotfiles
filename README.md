@@ -1,2 +1,26 @@
-dotfiles
-========
+# Marcelo's dotfiles
+
+## Installation
+
+### Using Git
+
+Clone the repository wherever you want and the linkfile.sh script will do the rest.
+
+```bash
+git clone https://github.com/marcelocarlosbr/dotfiles.git
+cd dotfiles
+./linkfiles.sh
+```
+
+### Without Git
+
+To install these dotfiles without Git:
+
+```bash
+wget https://github.com/marcelocarlosbr/dotfiles/archive/master.zip
+unzip master
+cd dotfiles-master
+./copyfiles.sh
+```
+
+After that you can remove the dotfiles-master folder, since in this installation type the files are copied rather than linked
