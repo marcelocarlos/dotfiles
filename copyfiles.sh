@@ -4,7 +4,7 @@ source functions
 
 function copyIt() {
 	echo -ne "Linking dotfiles ... "
-	for dotfile in $(/bin/ls -1B -I *.sh -I *.md); do
+	for dotfile in $(/bin/ls -1 | grep -v .sh | grep -v .md); do
 		FOLDER=$(realpath $dotfile)
 		cp -f "$FOLDER/$dotfile" "$HOME/.$dotfile"
 	done
