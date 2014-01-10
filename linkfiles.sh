@@ -4,9 +4,9 @@ source functions
 
 function linkIt() {
 	echo -ne "Linking dotfiles ... "
-	for dotfile in $(/bin/ls -1 | grep -v .sh | grep -v .md); do
+	for dotfile in $(/bin/ls -1 | grep -v files.sh | grep -v README.md); do
 		FOLDER=$(realpath $dotfile)
-		if [ -f "$HOME/.$dotfile" ]; then
+		if [ -e "$HOME/.$dotfile" ]; then
 			rm "$HOME/.$dotfile"
 		fi
 		ln -s "$FOLDER/$dotfile" "$HOME/.$dotfile"

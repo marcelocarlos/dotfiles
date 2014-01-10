@@ -7,7 +7,7 @@ set clipboard=unnamed
 " set clipboard=autoselect
 
 " Toggle for auto-indenting
-set pastetoggle=<F2>
+set pastetoggle=<F5>
 
 " Make vim more useful
 set nocompatible
@@ -37,7 +37,7 @@ endif
 " Enable line numbers
 set number
 " toggle for show/hide line numbers
-:nmap <f3> :set invnumber<CR>
+:nmap <f6> :set invnumber<CR>
 
 " Enable syntax highlighting
 syntax on
@@ -58,7 +58,9 @@ set incsearch
 set laststatus=2
 
 " Enable mouse in all modes
-set mouse=a
+" set mouse=a
+" Do not change to Visual Mode when selecting text using mouse
+set mouse-=a
 
 " Disable error bells
 set noerrorbells
