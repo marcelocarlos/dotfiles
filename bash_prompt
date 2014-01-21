@@ -35,17 +35,17 @@ export WHITE
 export BOLD
 export RESET
 
-function parse_git_dirty() {
-	if [ "$(uname)" == "Darwin" ]; then
-    	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
-	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-		[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
-	fi
-}
+# function parse_git_dirty() {
+# 	if [ "$(uname)" == "Darwin" ]; then
+#     	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
+# 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
+# 		[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
+# 	fi
+# }
 
-function parse_git_branch() {
-	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/" | awk '{print "  [git: "$1"]" }'
-}
+# function parse_git_branch() {
+# 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/" | awk '{print "  [git: "$1"]" }'
+# }
 
 function parse_svn_branch() {
 	parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' -e "s/$/$(parse_svn_dirty)/" | awk '{print "  [svn: "$1"] " }'
@@ -63,6 +63,58 @@ function parse_svn_dirty() {
 	[[ $(svn status 2> /dev/null | tail -n1) != "" ]] && echo "*"
 }
 
-PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${BLUE}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+# modified version of the one in http://joefleming.net/posts/git-info-in-your-bash-prompt/
+function parse_git_info {
+    git rev-parse --git-dir > /dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        git_status="$(git status 2> /dev/null)"
+
+        branch_pattern="^# On branch ([^${IFS}]*)"
+        detached_branch_pattern="# Not currently on any branch"
+        remote_pattern="# Your branch is (.*) of ([^${IFS}]*) by ([^${IFS}]*)"
+        diverge_pattern="# Your branch and (.*) have diverged"
+        diverge_pattern_count="# and have ([^${IFS}]*) and ([^${IFS}]*) different commits"
+        untracked_pattern="# Untracked files:"
+        new_pattern="new file:"
+        not_staged_pattern="Changes not staged for commit"
+        staged_pattern="Changes to be committed"
+
+        #files not staged for commit
+        if [[ ${git_status}} =~ ${not_staged_pattern} ]] || [[ ${git_status} =~ ${untracked_pattern} ]] || [[ ${git_status} =~ ${staged_pattern} ]] || [[ ${git_status} =~ ${new_pattern} ]]; then
+            state=" *"
+            #remote="✖"
+            #remote=" +"
+        fi
+        # add an else if or two here if you want to get more specific
+        # show if we're ahead or behind HEAD
+        if [[ ${git_status} =~ ${remote_pattern} ]]; then
+            if [[ ${BASH_REMATCH[1]} == "ahead" ]]; then
+                remote=" ▲(${BASH_REMATCH[3]})" # ▴ ↑
+            else
+                remote=" ▼(${BASH_REMATCH[3]})" # ▾ ↓
+            fi
+        fi
+
+        #diverged branch
+        #if [[ ${git_status} =~ ${diverge_pattern} ]]; then
+        if [[ ${git_status} =~ ${diverge_pattern_count} ]]; then
+            	remote=" (${BASH_REMATCH[1]})ⵖ(${BASH_REMATCH[2]})" # ↕ ߌ 𐌖
+        fi
+        #branch name
+        if [[ ${git_status} =~ ${branch_pattern} ]]; then
+            branch=${BASH_REMATCH[1]}
+        #detached branch
+        elif [[ ${git_status} =~ ${detached_branch_pattern} ]]; then
+            branch="NO BRANCH"
+        fi
+
+        echo "[git: ${branch}${remote}${state}]"
+    fi
+    return
+}
+
+PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${BLUE}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_info)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+
+# PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${BLUE}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
 
 # PS1="\[${BOLD}${RED}\]\u \[$RESET\]\[$BLACK\]at \[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]in \[$BOLD\]\[$GREEN\]\w\[$BLACK\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\$([[ -n \$(svn info 2> /dev/null) ]] && echo \" on \")\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
