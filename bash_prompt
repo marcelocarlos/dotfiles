@@ -113,7 +113,15 @@ function parse_git_info {
     return
 }
 
-PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${BLUE}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_info)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+function parse_user {
+	if [ "$(id -u)" == "0" ]; then
+		echo "\[${BOLD}${RED}\]\u\[$RESET\]"
+	else
+		echo "\[${BOLD}${BLUE}\]\u\[$RESET\]"
+	fi
+}
+
+PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_info)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
 
 # PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${BLUE}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
 
