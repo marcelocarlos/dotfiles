@@ -89,3 +89,7 @@ filetype plugin on
 " Save a file as root when using :W
 command W w !sudo tee % >/dev/null
 
+" Colorscheme
+
+colorscheme desert
+
