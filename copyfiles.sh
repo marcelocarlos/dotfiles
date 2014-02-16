@@ -58,6 +58,18 @@ else
     copyIt
 fi
 
+if [ $FORCE_W == 0 ]; then
+    read -p "Auto-create vim's swap and backup folders? (y/n) " -n 1
+    echo
+    if [[ $REPLY =~ ^[Yy]$ ]]; then
+        mkdir -p $HOME/.vim/swaps
+        mkdir -p $HOME/.vim/backups
+    fi
+else
+    mkdir -p $HOME/.vim/swaps
+    mkdir -p $HOME/.vim/backups
+fi
+
 unset copyIt
 
 # apply the changes
