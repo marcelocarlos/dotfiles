@@ -1,52 +1,52 @@
 # Create a new directory and enter it
 function md() {
-	mkdir -p "$@" && cd "$@"
+    mkdir -p "$@" && cd "$@"
 }
 export -f md
 
 function realpath() {
-	local FOLDER="$1"
-	if [ -f $1 ]; then 
-		FOLDER=`dirname "$1"`
-	fi
-	cd $FOLDER
-	echo $PWD
-	cd - >> /dev/null
-	return 0
+    local FOLDER="$1"
+    if [ -f $1 ]; then
+        FOLDER=`dirname "$1"`
+    fi
+    cd "$FOLDER"
+    echo $PWD
+    cd - >> /dev/null
+    return 0
 }
 export -f realpath
 
 function cleantex() {
-	find . \( -name "*.bkp" -or -name ".texpadtmp" -or -name "*.texshop" -or -name "*.aux" -or -name "*.bbl" -or -name "*.blg" -or -name "*.dvi" -or -name "*.fdb_latexmk" -or -name "*.glg" -or -name "*.glo" -or -name "*.gls" -or -name "*.idx" -or -name "*.ilg" -or -name "*.ind" -or -name "*.ist" -or -name "*.lof" -or -name "*.log" -or -name "*.lot" -or -name "*.nav" -or -name "*.nlo" -or -name "*.out" -or -name "*.pdfsync" -or -name "*.ps" -or -name "*.snm" -or -name "*.synctex.gz" -or -name "*.toc" -or -name "*.vrb" -or -name "*.maf" -or -name "*.mtc" -or -name "*.mtc0" -or -name "*.tex~" \) -exec rm -rf {} \;	
+    find . \( -name "*.bkp" -or -name ".texpadtmp" -or -name "*.texshop" -or -name "*.aux" -or -name "*.bbl" -or -name "*.blg" -or -name "*.dvi" -or -name "*.fdb_latexmk" -or -name "*.glg" -or -name "*.glo" -or -name "*.gls" -or -name "*.idx" -or -name "*.ilg" -or -name "*.ind" -or -name "*.ist" -or -name "*.lof" -or -name "*.log" -or -name "*.lot" -or -name "*.nav" -or -name "*.nlo" -or -name "*.out" -or -name "*.pdfsync" -or -name "*.ps" -or -name "*.snm" -or -name "*.synctex.gz" -or -name "*.toc" -or -name "*.vrb" -or -name "*.maf" -or -name "*.mtc" -or -name "*.mtc0" -or -name "*.tex~" \) -exec rm -rf {} \;
 }
 
 function cleantexcheck() {
-	find . \( -name "*.bkp" -or -name ".texpadtmp" -or -name "*.texshop" -or -name "*.aux" -or -name "*.bbl" -or -name "*.blg" -or -name "*.dvi" -or -name "*.fdb_latexmk" -or -name "*.glg" -or -name "*.glo" -or -name "*.gls" -or -name "*.idx" -or -name "*.ilg" -or -name "*.ind" -or -name "*.ist" -or -name "*.lof" -or -name "*.log" -or -name "*.lot" -or -name "*.nav" -or -name "*.nlo" -or -name "*.out" -or -name "*.pdfsync" -or -name "*.ps" -or -name "*.snm" -or -name "*.synctex.gz" -or -name "*.toc" -or -name "*.vrb" -or -name "*.maf" -or -name "*.mtc" -or -name "*.mtc0" -or -name "*.tex~" \)
+    find . \( -name "*.bkp" -or -name ".texpadtmp" -or -name "*.texshop" -or -name "*.aux" -or -name "*.bbl" -or -name "*.blg" -or -name "*.dvi" -or -name "*.fdb_latexmk" -or -name "*.glg" -or -name "*.glo" -or -name "*.gls" -or -name "*.idx" -or -name "*.ilg" -or -name "*.ind" -or -name "*.ist" -or -name "*.lof" -or -name "*.log" -or -name "*.lot" -or -name "*.nav" -or -name "*.nlo" -or -name "*.out" -or -name "*.pdfsync" -or -name "*.ps" -or -name "*.snm" -or -name "*.synctex.gz" -or -name "*.toc" -or -name "*.vrb" -or -name "*.maf" -or -name "*.mtc" -or -name "*.mtc0" -or -name "*.tex~" \)
 }
 
 function proverifaddcss() {
-	cp /usr/local/proverif/cssproverif.css "${1}"
+    cp /usr/local/proverif/cssproverif.css "${1}"
 }
 
 function proverifhtml() {
-	if [ $# -ne 1 ]; then
-		echo
-   		echo "Usage: pv.sh <source-file>"
-    	echo 
-	else
-    	SRC_FILE=$1
-	fi
+    if [ $# -ne 1 ]; then
+        echo
+        echo "Usage: pv.sh <source-file>"
+        echo
+    else
+        SRC_FILE=$1
+    fi
 
-	filename=$(basename "$SRC_FILE")
-	extension="${filename##*.}"
-	filename="${filename%.*}"
+    filename=$(basename "$SRC_FILE")
+    extension="${filename##*.}"
+    filename="${filename%.*}"
 
-	src_dir=$(dirname "${SRC_FILE}")
-	OUTPUT_HTML="${src_dir}/output/${filename}"
+    src_dir=$(dirname "${SRC_FILE}")
+    OUTPUT_HTML="${src_dir}/output/${filename}"
 
-	rm -rf "${OUTPUT_HTML}"
-	mkdir -p "${OUTPUT_HTML}"
+    rm -rf "${OUTPUT_HTML}"
+    mkdir -p "${OUTPUT_HTML}"
     proverifaddcss "${OUTPUT_HTML}"
-	proverif -html "${OUTPUT_HTML}" -color "${SRC_FILE}"
+    proverif -html "${OUTPUT_HTML}" -color "${SRC_FILE}"
 }
 

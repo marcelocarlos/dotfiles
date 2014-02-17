@@ -38,7 +38,7 @@ done
 
 function copyIt() {
     echo -ne "Copying dotfiles ... "
-    for dotfile in $(/bin/ls -1 | grep -v files.sh | grep -v README.md); do
+    for dotfile in $(/bin/ls -1 | grep -Fv .sh | grep -Fv .md); do
         FOLDER=$(realpath $dotfile)
         if [ -e "$HOME/.$dotfile" ] || [ -L "$HOME/.$dotfile" ]; then
             rm -f "$HOME/.$dotfile"
