@@ -3,7 +3,7 @@
 # Your todo.txt directory
 #export TODO_DIR="/Users/gina/Documents/todo"
 export TODO_DIR=$(dirname "$0")
-export TODO_DIR=$HOME/Sync/Notes/todo-txt
+export TODO_DIR=$HOME/Sync/Todo
 
 # Your todo/done/report.txt locations
 export TODO_FILE="$TODO_DIR/todo.txt"
