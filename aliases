@@ -1,6 +1,9 @@
 # Created by Marcelo C. Carlos
 # Some aliases where based on those found on: https://github.com/mathiasbynens/dotfiles
 
+# vi
+alias vi="vim" 
+
 # Navigation
 alias ..="cd .."
 alias ...="cd ../.."
@@ -20,19 +23,6 @@ alias wget='wget -c'
 
 # colorize diff
 alias diff='colordiff'
-
-# replacing the default rm to a rm that moves files to trash
-#alias rm='rmtrash'
-
-# Shortcuts
-alias dr="cd ~/Dropbox"
-alias dw="cd ~/Dropbox/Working"
-alias dwp="cd ~/Dropbox/Working/Papers"
-alias ds="cd ~/Dropbox/Shared"
-alias th="cd ~/Dropbox/Working/Thesis/"
-alias thd="cd ~/Dropbox/Working/Thesis/document"
-alias thp="cd ~/Dropbox/Working/Thesis/proverif"
-alias tho="cd ~/Dropbox/Working/Thesis/other"
 
 # Git
 alias gt='git status '
@@ -67,6 +57,7 @@ alias whois="whois -h whois-servers.net"
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"
 alias httpdump="sudo tcpdump -i en1 -n -s 0 -w - | grep -a -o -E \"Host\: .*|GET \/.*\""
+alias sniffpw="sudo tcpdump -i eth0 port http or port ftp or port smtp or port imap or port pop3 -l -A | egrep -i 'pass=|pwd=|log=|login=|user=|username=|pw=|passw=|passwd=|password=|pass:|user:|username:|password:|login:|pass |user ' --color=auto --line-buffered -B20"
 
 # Proverif aliases
 alias pv="proverif -color"
@@ -83,13 +74,8 @@ type -t md5sum > /dev/null || alias md5sum="md5"
 # Recursively delete `.DS_Store` files
 alias cleanup-folder="find . -type f -name '*.DS_Store' -ls -delete"
 
-# Show/hide hidden files in Finder
-alias show-all-hidden-files-finder="defaults write com.apple.Finder AppleShowAllFiles -bool true && killall Finder"
-alias hide-all-hidden-files-finder="defaults write com.apple.Finder AppleShowAllFiles -bool false && killall Finder"
-
-# Hide/show all desktop icons (useful when presenting)
-alias hide-desktop-icons="defaults write com.apple.finder CreateDesktop -bool false && killall Finder"
-alias show-desktop-icons="defaults write com.apple.finder CreateDesktop -bool true && killall Finder"
-
 # Check TRIM status
 alias trim-status="system_profiler SPSerialATADataType | grep -i TRIM"
+
+# TODO.txt
+alias t="~/bin/todo.sh -d ~/.todo/config"

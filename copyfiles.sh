@@ -43,7 +43,11 @@ function copyIt() {
         if [ -e "$HOME/.$dotfile" ] || [ -L "$HOME/.$dotfile" ]; then
             rm -f "$HOME/.$dotfile"
         fi
-        cp -f "$FOLDER/$dotfile" "$HOME/.$dotfile"
+        if [ -d $dotfile ]; then
+            cp -f "$FOLDER" "$HOME/.$dotfile"
+        else
+            cp -f "$FOLDER/$dotfile" "$HOME/.$dotfile"
+        fi
     done
     echo "[OK]"
 }
@@ -56,18 +60,6 @@ if [ $FORCE_W == 0 ]; then
     fi
 else
     copyIt
-fi
-
-if [ $FORCE_W == 0 ]; then
-    read -p "Auto-create vim's swap and backup folders? (y/n) " -n 1
-    echo
-    if [[ $REPLY =~ ^[Yy]$ ]]; then
-        mkdir -p $HOME/.vim/swaps
-        mkdir -p $HOME/.vim/backups
-    fi
-else
-    mkdir -p $HOME/.vim/swaps
-    mkdir -p $HOME/.vim/backups
 fi
 
 unset copyIt

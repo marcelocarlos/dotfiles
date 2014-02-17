@@ -1,3 +1,7 @@
+" Enable Pathogen
+runtime bundle/vim-pathogen/autoload/pathogen.vim
+execute pathogen#infect()
+
 " Configuration file for vim
 set modelines=0		" CVE-2007-2438
 
@@ -7,6 +11,8 @@ set clipboard=unnamed
 " set clipboard=autoselect
 
 " Toggle for auto-indenting
+set autoindent 
+"set smartindent 
 set pastetoggle=<F5>
 
 " Make vim more useful
@@ -90,6 +96,16 @@ filetype plugin on
 command W w !sudo tee % >/dev/null
 
 " Colorscheme
+colorscheme molokai
 
-colorscheme desert
+" 
+" omni completion
+filetype plugin on
+"set omnifunc=syntaxcomplete#Complete
+let g:SuperTabDefaultCompletionType = "\<c-x>\<c-o>" 
+"let g:SuperTabDefaultCompletionType = "context"
 
+let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
+
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
