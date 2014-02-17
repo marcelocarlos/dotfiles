@@ -38,7 +38,10 @@ set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
 if exists("&undodir")
 	set undodir=~/.vim/undo
+    silent !mkdir ~/.vim/undo > /dev/null 2>&1
 endif
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+silent !mkdir ~/.vim/swaps > /dev/null 2>&1
 
 " Enable line numbers
 set number

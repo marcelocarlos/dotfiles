@@ -41,7 +41,7 @@ function linkIt() {
     for dotfile in $(/bin/ls -1 | grep -Fv .sh | grep -Fv .md); do
         FOLDER=$(realpath $dotfile)
         if [ -e "$HOME/.$dotfile" ] || [ -L "$HOME/.$dotfile" ]; then
-            rm -f "$HOME/.$dotfile"
+            rm -rf "$HOME/.$dotfile"
         fi
         if [ -d $dotfile ]; then
             ln -s "$FOLDER" "$HOME/.$dotfile"

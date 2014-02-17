@@ -61,3 +61,5 @@
 [user]
 	name = Marcelo Carlos
 	email = me@marcelocarlos.com
+[push]
+	default = simple
