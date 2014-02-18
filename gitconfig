@@ -13,6 +13,8 @@
 	co = checkout
 	# remote show origin
 	url = remote show origin
+    # branching
+    br = branch
 
 [apply]
 	# Detect whitespace errors when applying a patch
@@ -58,8 +60,6 @@
   remote = origin
   merge = refs/heads/master
 
-[user]
-	name = Marcelo Carlos
-	email = me@marcelocarlos.com
-[push]
-	default = simple
+[include]
+  path = ~/.gitlocal/userconfig
+
