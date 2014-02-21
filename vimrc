@@ -101,14 +101,11 @@ command W w !sudo tee % >/dev/null
 " Colorscheme
 colorscheme molokai
 
-" 
 " omni completion
 filetype plugin on
 "set omnifunc=syntaxcomplete#Complete
 let g:SuperTabDefaultCompletionType = "\<c-x>\<c-o>" 
 "let g:SuperTabDefaultCompletionType = "context"
-
-let g:pydiction_location = '~/.vim/bundle/pydiction/complete-dict'
 
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
 autocmd InsertLeave * if pumvisible() == 0|pclose|endif
