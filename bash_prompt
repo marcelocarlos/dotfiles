@@ -69,12 +69,12 @@ function parse_git_info {
     if [ $? -eq 0 ]; then
         git_status="$(git status 2> /dev/null)"
 
-        branch_pattern="^# On branch ([^${IFS}]*)"
-        detached_branch_pattern="# Not currently on any branch"
-        remote_pattern="# Your branch is (.*) of ([^${IFS}]*) by ([^${IFS}]*)"
-        diverge_pattern="# Your branch and (.*) have diverged"
-        diverge_pattern_count="# and have ([^${IFS}]*) and ([^${IFS}]*) different commits"
-        untracked_pattern="# Untracked files:"
+        branch_pattern="On branch ([^${IFS}]*)"
+        detached_branch_pattern="Not currently on any branch"
+        remote_pattern="Your branch is (.*) of ([^${IFS}]*) by ([^${IFS}]*)"
+        diverge_pattern="Your branch and (.*) have diverged"
+        diverge_pattern_count="and have ([^${IFS}]*) and ([^${IFS}]*) different commits"
+        untracked_pattern="Untracked files:"
         new_pattern="new file:"
         not_staged_pattern="Changes not staged for commit"
         staged_pattern="Changes to be committed"

@@ -19,7 +19,7 @@ export HISTCONTROL=ignoredups
 #export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
 # Path
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:$PATH
+export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$PATH
 
 # set PATH to include user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
