@@ -12,9 +12,16 @@ fi
 
 tput sgr0
 
+  #BOLD="\[\033[1m\]"
+  #RED="\[\033[1;31m\]"
+  #GREEN="\[\e[32;1m\]"
+  #BLUE="\[\e[34;1m\]"
+  #OFF="\[\033[m\]"
+
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
+TURQUOISE="\[\033[00;36m\]"
 YELLOW=$(tput setaf 3)
 BLUE=$(tput setaf 4)
 MAGENTA=$(tput setaf 5)
@@ -33,6 +40,7 @@ export MAGENTA
 export CYAN
 export WHITE
 export BOLD
+export TURQUOISE
 export RESET
 
 # function parse_git_dirty() {
@@ -117,11 +125,11 @@ function parse_user {
 	if [ "$(id -u)" == "0" ]; then
 		echo "\[${BOLD}${RED}\]\u\[$RESET\]"
 	else
-		echo "\[${BOLD}${BLUE}\]\u\[$RESET\]"
+		echo "\[${BOLD}${TURQUOISE}\]\u\[$RESET\]"
 	fi
 }
 
-PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_info)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$BLACK\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_info)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
 
 # PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${BLUE}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
 

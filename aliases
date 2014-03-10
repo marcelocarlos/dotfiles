@@ -79,3 +79,7 @@ alias trim-status="system_profiler SPSerialATADataType | grep -i TRIM"
 
 # TODO.txt
 alias t="~/bin/todo.sh -d ~/.todo/config"
+
+if [[ "$OSTYPE" =~ ^linux ]]; then
+	alias open="xdg-open"
+fi
