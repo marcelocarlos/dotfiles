@@ -32,7 +32,7 @@ alias gc='git commit'
 alias gd='git df'
 alias gl='git lg'
 alias go='git co '
-alias gca='git ca'
+#alias gca='git ca'
 
 # Always use color output for `ls`
 if [[ "$OSTYPE" =~ ^darwin ]]; then

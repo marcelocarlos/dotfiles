@@ -6,7 +6,7 @@
 	# Diff
 	df = diff --patch-with-stat
 	# Commit all changes
-	ca = commit -a
+	# ca = commit -a
 	# Commit
 	ci = commit
 	# Checkout
