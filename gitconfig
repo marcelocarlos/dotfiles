@@ -63,3 +63,5 @@
 [include]
   path = ~/.gitlocal/userconfig
 
+[push]
+	default = simple
