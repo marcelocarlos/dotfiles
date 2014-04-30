@@ -34,6 +34,9 @@ alias gl='git lg'
 alias go='git co '
 #alias gca='git ca'
 
+# other
+alias mtr='mtr -t'
+
 # Always use color output for `ls`
 if [[ "$OSTYPE" =~ ^darwin ]]; then
 	alias ls="command ls -G"
