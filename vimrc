@@ -52,7 +52,7 @@ set number
 syntax on
 
 " Highlight current line
-"  set cursorline
+set cursorline
 
 " Make tabs as wide as four spaces
 set tabstop=4 shiftwidth=4 expandtab
@@ -113,3 +113,11 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 au BufReadPost Vagrantfile set syntax=ruby
 
 set colorcolumn=80
+
+" check syntax on open
+let g:syntastic_check_on_open=1
+
+let g:syntastic_error_symbol = 'E→'
+let g:syntastic_style_error_symbol = 'S→'
+let g:syntastic_warning_symbol = 'W→'
+let g:syntastic_style_warning_symbol = '~S'

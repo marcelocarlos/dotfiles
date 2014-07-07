@@ -36,6 +36,7 @@ alias go='git co '
 
 # other
 alias mtr='mtr -t'
+alias timestamp='date +%s'
 
 # Always use color output for `ls`
 if [[ "$OSTYPE" =~ ^darwin ]]; then
