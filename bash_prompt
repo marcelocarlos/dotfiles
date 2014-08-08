@@ -3,15 +3,6 @@
 #
 # This version includes information about svn and git status when you are in a version controlled folder
 #
-
-if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-	export TERM=gnome-256color
-elif infocmp xterm-256color >/dev/null 2>&1; then
-	export TERM=xterm-256color
-fi
-
-tput sgr0
-
   #BOLD="\[\033[1m\]"
   #RED="\[\033[1;31m\]"
   #GREEN="\[\e[32;1m\]"
@@ -31,6 +22,8 @@ WHITE=$(tput setaf 7)
 BOLD=$(tput bold)
 RESET=$(tput sgr0)
 
+tput sgr0
+
 export BLACK
 export RED
 export GREEN
@@ -43,17 +36,11 @@ export BOLD
 export TURQUOISE
 export RESET
 
-# function parse_git_dirty() {
-# 	if [ "$(uname)" == "Darwin" ]; then
-#     	[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit, working directory clean" ]] && echo "*"
-# 	elif [ "$(expr substr $(uname -s) 1 5)" == "Linux" ]; then
-# 		[[ $(git status 2> /dev/null | tail -n1) != "nothing to commit (working directory clean)" ]] && echo "*"
-# 	fi
-# }
-
-# function parse_git_branch() {
-# 	git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e "s/* \(.*\)/\1$(parse_git_dirty)/" | awk '{print "  [git: "$1"]" }'
-# }
+if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
+	export TERM=gnome-256color
+elif infocmp xterm-256color >/dev/null 2>&1; then
+	export TERM=xterm-256color
+fi
 
 function parse_svn_branch() {
 	parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' -e "s/$/$(parse_svn_dirty)/" | awk '{print "  [svn: "$1"] " }'
@@ -129,8 +116,15 @@ function parse_user {
 	fi
 }
 
-PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$BLACK\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_info)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+function get_ps1 {
+   EXIT_STATUS="$?"
+    if [ "${EXIT_STATUS}" -eq 0  ]; then
+        EXIT_DISPLAY="(${GREEN}$EXIT_STATUS${RESET})"
+    else
+        EXIT_DISPLAY="(${RED}$EXIT_STATUS${RESET})"
+    fi
 
-# PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at \[${BOLD}${BLUE}\]\u\[$RESET\]\[$BLACK\]@\[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+    PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$BLACK\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\]${EXIT_DISPLAY}\[$YELLOW\] \$(parse_git_info)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+}
 
-# PS1="\[${BOLD}${RED}\]\u \[$RESET\]\[$BLACK\]at \[$BOLD\]\[$CYAN\]\h \[$RESET\]\[$BLACK\]in \[$BOLD\]\[$GREEN\]\w\[$BLACK\]\$([[ -n \$(git branch 2> /dev/null) ]] && echo \" on \")\$([[ -n \$(svn info 2> /dev/null) ]] && echo \" on \")\[$YELLOW\]\$(parse_git_branch)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+PROMPT_COMMAND=get_ps1
