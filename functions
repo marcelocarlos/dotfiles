@@ -4,6 +4,10 @@ function md() {
 }
 export -f md
 
+function timestamp2date() {
+    echo `date -d @${1}`
+}
+
 function realpath() {
     local FOLDER="$1"
     if [ -f $1 ]; then

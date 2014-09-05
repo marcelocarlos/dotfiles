@@ -3,7 +3,7 @@
 # Your todo.txt directory
 #export TODO_DIR="/Users/gina/Documents/todo"
 export TODO_DIR=$(dirname "$0")
-export TODO_DIR=$HOME/Sync/Todo
+export TODO_DIR=$HOME/ownCloud/Todo
 
 # Your todo/done/report.txt locations
 export TODO_FILE="$TODO_DIR/todo.txt"
@@ -52,10 +52,11 @@ export REPORT_FILE="$TODO_DIR/report.txt"
 # Priorities can be any upper-case letter.
 # A,B,C are highlighted; you can add coloring for more.
 #
-# export PRI_A=$YELLOW        # color for A priority
-# export PRI_B=$GREEN         # color for B priority
-# export PRI_C=$LIGHT_BLUE    # color for C priority
-# export PRI_D=...            # define your own
+export PRI_A=$LIGHT_RED
+export PRI_B=$YELLOW        # color for A priority
+export PRI_C=$GREEN         # color for B priority
+export PRI_D=$CYAN    # color for C priority
+export PRI_E=$LIGHT_PURPLE            # define your own
 # export PRI_X=$WHITE         # color unless explicitly defined
 
 # There is highlighting for tasks that have been done,
