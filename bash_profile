@@ -17,8 +17,8 @@ shopt -s cdspell
 
 if [ "$(uname)" == "Darwin" ]; then
 	# Enabling bash-completion (you need to install it first - use brew for that!)
-	if [ -f `brew --prefix`/etc/bash_completion ]; then
-	. `brew --prefix`/etc/bash_completion
+	if [ -f $(brew --prefix)/etc/bash_completion ]; then
+	. $(brew --prefix)/etc/bash_completion
 	fi
 fi
 
