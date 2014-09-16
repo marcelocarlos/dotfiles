@@ -38,6 +38,11 @@ alias go='git co '
 alias mtr='mtr -t'
 alias timestamp='date +%s'
 
+# cheatsheets
+alias cs='cheatsheets.sh'
+# enable autocompletion for the alias (if the command exists)
+command -v cheatsheets.sh >/dev/null && complete -F _cheatsheets_autocomplete cs
+
 # Always use color output for `ls`
 if [[ "$OSTYPE" =~ ^darwin ]]; then
 	alias ls="command ls -G"
