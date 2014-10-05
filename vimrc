@@ -121,3 +121,6 @@ let g:syntastic_error_symbol = 'E→'
 let g:syntastic_style_error_symbol = 'S→'
 let g:syntastic_warning_symbol = 'W→'
 let g:syntastic_style_warning_symbol = '~S'
+
+" allow transparency from terminal
+hi Normal ctermfg=252 ctermbg=none
