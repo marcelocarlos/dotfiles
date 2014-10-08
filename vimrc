@@ -112,7 +112,9 @@ autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 au BufReadPost Vagrantfile set syntax=ruby
 
-set colorcolumn=80
+if version >= 703
+    set colorcolumn=80
+endif
 
 " check syntax on open
 let g:syntastic_check_on_open=1
@@ -124,3 +126,10 @@ let g:syntastic_style_warning_symbol = '~S'
 
 " allow transparency from terminal
 hi Normal ctermfg=252 ctermbg=none
+
+" show invisibles                                                                  
+set list                                                                           
+set listchars=tab:>•,trail:•,extends:>,precedes:<,nbsp:•                           
+                                                                                     
+" improving brackets highlighting (the default is quite misleading)                
+hi MatchParen cterm=none ctermbg=none ctermfg=blue                                 
