@@ -38,6 +38,9 @@ alias go='git co '
 alias mtr='mtr -t'
 alias timestamp='date +%s'
 
+# Start calculator with math support
+alias bc='bc -l'
+
 # cheatsheets
 alias cs='cheatsheets.sh'
 alias csl='cheatsheets.sh -l'
