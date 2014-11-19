@@ -1,14 +1,6 @@
 # Created by Marcelo C. Carlos
 # Modified setup from https://github.com/mathiasbynens/dotfiles
 #
-# This version includes information about svn and git status when you are in a version controlled folder
-#
-  #BOLD="\[\033[1m\]"
-  #RED="\[\033[1;31m\]"
-  #GREEN="\[\e[32;1m\]"
-  #BLUE="\[\e[34;1m\]"
-  #OFF="\[\033[m\]"
-
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -37,26 +29,10 @@ export TURQUOISE
 export RESET
 
 if [[ $COLORTERM = gnome-* && $TERM = xterm ]] && infocmp gnome-256color >/dev/null 2>&1; then
-	export TERM=gnome-256color
+    export TERM=gnome-256color
 elif infocmp xterm-256color >/dev/null 2>&1; then
-	export TERM=xterm-256color
+    export TERM=xterm-256color
 fi
-
-function parse_svn_branch() {
-	parse_svn_url | sed -e 's#^'"$(parse_svn_repository_root)"'##g' -e "s/$/$(parse_svn_dirty)/" | awk '{print "  [svn: "$1"] " }'
-}
-
-function parse_svn_url() {
-  svn info 2>/dev/null | sed -ne 's#^URL: ##p'
-}
-
-function parse_svn_repository_root() {
-  svn info 2>/dev/null | sed -ne 's#^Repository Root: ##p'
-}
-
-function parse_svn_dirty() {
-	[[ $(svn status 2> /dev/null | tail -n1) != "" ]] && echo "*"
-}
 
 # modified version of the one in http://joefleming.net/posts/git-info-in-your-bash-prompt/
 function parse_git_info {
@@ -93,7 +69,7 @@ function parse_git_info {
         #diverged branch
         #if [[ ${git_status} =~ ${diverge_pattern} ]]; then
         if [[ ${git_status} =~ ${diverge_pattern_count} ]]; then
-            	remote=" (${BASH_REMATCH[1]})ⵖ(${BASH_REMATCH[2]})" # ↕ ߌ 𐌖
+                remote=" (${BASH_REMATCH[1]})ⵖ(${BASH_REMATCH[2]})" # ↕ ߌ 𐌖
         fi
         #branch name
         if [[ ${git_status} =~ ${branch_pattern} ]]; then
@@ -109,22 +85,22 @@ function parse_git_info {
 }
 
 function parse_user {
-	if [ "$(id -u)" == "0" ]; then
-		echo "\[${BOLD}${RED}\]\u\[$RESET\]"
-	else
-		echo "\[${BOLD}${TURQUOISE}\]\u\[$RESET\]"
-	fi
+    if [ "$(id -u)" == "0" ]; then
+        echo "\[${BOLD}${RED}\]\u\[$RESET\]"
+    else
+        echo "\[${BOLD}${TURQUOISE}\]\u\[$RESET\]"
+    fi
 }
 
 function get_ps1 {
    EXIT_STATUS="$?"
     if [ "${EXIT_STATUS}" -eq 0  ]; then
-        EXIT_DISPLAY="(${GREEN}$EXIT_STATUS${RESET})"
+        EXIT_DISPLAY="${GREEN}$EXIT_STATUS${RESET}"
     else
-        EXIT_DISPLAY="(${RED}$EXIT_STATUS${RESET})"
+        EXIT_DISPLAY="${RED}$EXIT_STATUS${RESET}"
     fi
 
-    PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$BLACK\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\]${EXIT_DISPLAY}\[$YELLOW\] \$(parse_git_info)\$(parse_svn_branch)\[$BLACK\]\n\$ \[$RESET\]"
+    PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$BLACK\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\][\D{%T} - ${EXIT_DISPLAY}] \[$YELLOW\]\$(parse_git_info)\[$BLACK\]\n\$ \[$RESET\]"
 }
 
 PROMPT_COMMAND=get_ps1
