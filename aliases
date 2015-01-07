@@ -44,8 +44,10 @@ alias bc='bc -l'
 # cheatsheets
 alias cs='cheatsheets.sh'
 alias csl='cheatsheets.sh -l'
-# enable autocompletion for the alias (if the command exists)
-command -v cheatsheets.sh >/dev/null && complete -F _cheatsheets_autocomplete cs
+
+# marks
+alias m='mark'
+alias j='jump'
 
 # Always use color output for `ls`
 if [[ "$OSTYPE" =~ ^darwin ]]; then
@@ -62,10 +64,10 @@ alias sudo='sudo '
 alias update-all-software='sudo softwareupdate -i -a; brew update; brew upgrade'
 
 # IP, Whois, etc
-alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
-alias localip="ipconfig getifaddr en1"
-alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
-alias whois="whois -h whois-servers.net"
+alias public_ip="curl ifconfig.me"
+
+# show mounts in a formatter way
+alias mountf="mount | column -t"
 
 # View HTTP traffic
 alias sniff="sudo ngrep -d 'en1' -t '^(GET|POST) ' 'tcp and port 80'"

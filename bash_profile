@@ -1,7 +1,7 @@
 # Created by Marcelo C. Carlos
 # Modified setup from https://github.com/mathiasbynens/dotfiles
 
-for file in ~/.{bash_prompt,completions,exports,aliases,functions}; do
+for file in ~/.{bash_prompt,completions,exports,aliases,functions,mark}; do
 	[ -r "$file" ] && source "$file"
 done
 unset file

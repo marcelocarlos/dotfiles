@@ -48,3 +48,18 @@ _complete_running_processes_pids ()
     COMPREPLY=( $(ps axc | tail -n +2 | awk '{print $1 " # " $5}' | sort -u | grep -v "^[\-\(]" | egrep -i "$re") )
 }
 complete -o bashdefault -o default -o nospace -F _complete_running_processes_pids kill
+
+_completemarks() {
+  local curw=${COMP_WORDS[COMP_CWORD]}
+  local wordlist=$(find $MARKPATH -type l -exec basename {} \;)
+  COMPREPLY=($(compgen -W '${wordlist[@]}' -- "$curw"))
+  return 0
+}
+
+complete -F _completemarks jump j unmark
+
+
+
+# enable autocompletion for the alias (if the command exists)
+# TODO: MOVE CHEATSHEETS COMPLETION HERE
+command -v cheatsheets.sh >/dev/null && complete -F _cheatsheets_autocomplete cs
