@@ -29,3 +29,8 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+# show the number of failed login attempts
+if [ -f "/var/log/auth.log" ] ; then
+    echo -e "Failed login attempts: $(grep 'Failed password' /var/log/auth.log* | wc -l)"
+fi
