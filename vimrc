@@ -11,15 +11,15 @@ set clipboard=unnamed
 " set clipboard=autoselect
 
 " Toggle for auto-indenting
-set autoindent 
-"set smartindent 
+set autoindent
+"set smartindent
 set pastetoggle=<F5>
 
 " Make vim more useful
 set nocompatible
 
 " more powerful backspacing
-set backspace=2		
+set backspace=2
 
 " Enhance command-line completion
 set wildmenu
@@ -93,7 +93,7 @@ set title
 set showcmd
 
 " use the file type plugins
-filetype plugin on      
+filetype plugin on
 
 " Save a file as root when using :W
 command W w !sudo tee % >/dev/null
@@ -104,7 +104,7 @@ colorscheme molokai
 " omni completion
 filetype plugin on
 "set omnifunc=syntaxcomplete#Complete
-let g:SuperTabDefaultCompletionType = "\<c-x>\<c-o>" 
+let g:SuperTabDefaultCompletionType = "\<c-x>\<c-o>"
 "let g:SuperTabDefaultCompletionType = "context"
 
 autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
@@ -127,9 +127,15 @@ let g:syntastic_style_warning_symbol = '~S'
 " allow transparency from terminal
 hi Normal ctermfg=252 ctermbg=none
 
-" show invisibles                                                                  
-set list                                                                           
-set listchars=tab:>•,trail:•,extends:>,precedes:<,nbsp:•                           
-                                                                                     
-" improving brackets highlighting (the default is quite misleading)                
-hi MatchParen cterm=none ctermbg=none ctermfg=blue                                 
+" spell checker
+" set spell
+"set spelllang=en
+
+" show invisibles
+set list
+set listchars=tab:>•,trail:•,extends:>,precedes:<,nbsp:•
+
+" improving brackets highlighting (the default is quite misleading)
+hi MatchParen cterm=none ctermbg=none ctermfg=blue
+
+autocmd filetype crontab setlocal nobackup nowritebackup

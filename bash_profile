@@ -15,6 +15,12 @@ shopt -s histappend
 # Autocorrect typos in path names when using `cd`
 shopt -s cdspell
 
+# Make multi-line commandsline in history
+shopt -q -s cmdhist
+
+# Make sure display get updated when terminal window get resized
+shopt -q -s checkwinsize
+
 if [ "$(uname)" == "Darwin" ]; then
     # Enabling bash-completion (you need to install it first - use brew for that!)
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
