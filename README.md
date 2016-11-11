@@ -24,3 +24,7 @@ cd dotfiles-master
 ```
 
 After that you can remove the dotfiles-master folder, since in this installation type the files are copied rather than linked
+
+## Additional information
+
+You can easily add custom/private dotfiles and have them sourced automatically by adding them to your `$HOME` directory using the prefix `.dotfile_src_` (e.g. `~/.dotfile_src_secrets`).

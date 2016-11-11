@@ -33,7 +33,7 @@ EOF
 
 function install_it() {
     echo "Installing ... "
-    for dotfile in $(/bin/ls -1 ${APP_PATH} | grep -Fv .sh | grep -Fv .md); do
+    for dotfile in $(/bin/ls -1 ${APP_PATH} | grep -Fv .sh | grep -Fv .md | grep -Fv .vim); do
         if [ -e "$HOME/.$dotfile" ] || [ -L "$HOME/.$dotfile" ]; then
             rm -r ${EXTRA_PARAM} "$HOME/.$dotfile"
         fi
@@ -43,6 +43,12 @@ function install_it() {
             ln -s ${EXTRA_PARAM} "${APP_PATH}/$dotfile" "$HOME/.$dotfile"
         fi
     done
+    mkdir -p ~/.config/nvim
+    if [ $LINK_FILES == 0 ]; then
+        cp -r ${EXTRA_PARAM} "${APP_PATH}/nvim_init.vim" "$HOME/.config/nvim/init.vim"
+    else
+        ln -s ${EXTRA_PARAM} "${APP_PATH}/nvim_init.vim" "$HOME/.config/nvim/init.vim"
+    fi
     echo "Done."
     echo ""
 }

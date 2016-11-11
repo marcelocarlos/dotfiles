@@ -1,8 +1,8 @@
 # Created by Marcelo C. Carlos
 # Modified setup from https://github.com/mathiasbynens/dotfiles
 
-for file in ~/.{bash_prompt,completions,exports,aliases,functions,mark}; do
-	[ -r "$file" ] && source "$file"
+for file in $(ls ~/.dotfile_src_*); do
+    [ -r "$file" ] && source "$file"
 done
 unset file
 
@@ -40,3 +40,12 @@ fi
 if [ -f "/var/log/auth.log" ] ; then
     echo -e "Failed login attempts: $(grep 'Failed password' /var/log/auth.log* | wc -l)"
 fi
+
+# initialize rbenv 
+eval "$(rbenv init -)"
+
+# initialize gpg daemon
+eval $(gpg-agent --daemon)
+
+# awscli completion
+complete -C aws_completer aws
