@@ -56,4 +56,6 @@ untracked = cyan
 log = true
 
 [include]
-path = ~/.gitlocal/userconfig
+path = ~/.gitlocal/user
+[diff "gpg"]
+	textconv = gpg --quiet --no-tty --decrypt

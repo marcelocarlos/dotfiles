@@ -17,6 +17,9 @@ export HISTCONTROL=ignoredups
 # Display dates and times in history
 export HISTTIMEFORMAT="%d-%h-%y %T | "
 
+# Stop brew from complaining about keychain credentials
+HOMEBREW_NO_GITHUB_API=1
+
 # Make some commands not show up in history
 #export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
@@ -28,4 +31,9 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:${PATH}:/usr/local/Cellar/rbenv/1.0.0/libexec"
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:${PATH}"
+
+# include the correct rbenv path
+export PATH="${PATH}:$(which rbenv | xargs realpath | xargs dirname)"
+
+export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"

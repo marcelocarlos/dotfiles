@@ -15,6 +15,9 @@ alias lsd='ls -l | grep "^d"'
 alias ll='ls -l'
 alias lh='ls -lh'
 
+# Always use color output for `ls`
+alias ls="command ls --color"
+
 # Make RM a little safer
 alias rm='rm -I --preserve-root'
 
@@ -51,9 +54,6 @@ alias sl='snippets.sh -l'
 # marks
 alias m='mark'
 alias j='jump'
-
-# Always use color output for `ls`
-alias ls="command ls --color"
 
 # Enable aliases to be sudoed
 alias sudo='sudo '
