@@ -103,3 +103,8 @@ alias gcp="git commit --author='Marcelo Carlos <contact@marcelocarlos.com>'"
 
 # fix crontab on OSX
 alias crontab="VIM_CRONTAB=true crontab"
+
+# documentation output by default in rspec
+alias rspec='rspec --format=documentation'
+
+alias be='bundle exec'
