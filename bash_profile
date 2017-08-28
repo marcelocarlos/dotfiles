@@ -49,3 +49,13 @@ eval $(gpg-agent --daemon)
 
 # awscli completion
 complete -C aws_completer aws
+
+function cd {
+    builtin cd "$@"
+    if [ -d ".git" ]; then
+        grep "git secrets --pre_commit_hook" .git/hooks/pre-commit -q 2> /dev/null
+        if [ ! $? -eq 0 ]; then
+            git secrets --install
+        fi
+    fi
+}
