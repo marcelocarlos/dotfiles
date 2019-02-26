@@ -2,7 +2,7 @@
 # Modified setup from https://github.com/mathiasbynens/dotfiles
 
 # Make vim the default editor
-export EDITOR="nvim"
+export EDITOR="vim"
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"

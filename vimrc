@@ -1,38 +1,59 @@
-" Enable Pathogen
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
+" Install vimplug
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
-" Configuration file for vim
-set modelines=0		" CVE-2007-2438
+" ------------------------------------------------
+" Plugins
+" ------------------------------------------------
+call plug#begin('~/.vim/plugged')
 
-" Use the OS clipboard by default (on versions compiled with `+clipboard`)
-set clipboard=unnamed
-" set clipboard+=unnamed
-" set clipboard=autoselect
+" General
+Plug 'neomake/neomake'
+Plug 'joshdick/onedark.vim'
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'djoshea/vim-autoread'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'vim-syntastic/syntastic'
+" Plug 'ervandew/supertab'
+Plug 'Shougo/echodoc.vim'
+call plug#end()
 
-" Toggle for auto-indenting
-set autoindent
-"set smartindent
-set pastetoggle=<F5>
-
-" Make vim more useful
-set nocompatible
-
-" more powerful backspacing
-set backspace=2
-
+" -----------------------------------------------
+" Global Settings 
+" -----------------------------------------------
+" syntax highlighting
+" syntax on
+syntax on filetype plugin indent on
+" line numbers
+set number
+" Highlight current line
+set cursorline
+" linebreaks
+set linebreak
+" Show the (partial) command as it’s being typed
+set showcmd
 " Enhance command-line completion
 set wildmenu
-
-" Allow cursor keys in insert mode
-set esckeys
-
-" Optimize for fast terminal connections
-set ttyfast
-
-" Add the g flag to search/replace by default
-set gdefault
-
+" Highlight searches
+set hlsearch
+" Highlight dynamically as pattern is typed
+set incsearch
 " Centralize backups, swapfiles and undo history
 set backupdir=~/.vim/backups
 set directory=~/.vim/swaps
@@ -42,100 +63,94 @@ if exists("&undodir")
 endif
 silent !mkdir ~/.vim/backups > /dev/null 2>&1
 silent !mkdir ~/.vim/swaps > /dev/null 2>&1
-
-" Enable line numbers
-set number
-" toggle for show/hide line numbers
-:nmap <f6> :set invnumber<CR>
-
-" Enable syntax highlighting
-syntax on
-
-" Highlight current line
-set cursorline
-
-" Make tabs as wide as four spaces
-set tabstop=4 shiftwidth=4 expandtab
-
-" Highlight searches
-set hlsearch
-
-" Highlight dynamically as pattern is typed
-set incsearch
-
-" Always show status line
-set laststatus=2
-
-" Enable mouse in all modes
-" set mouse=a
-" Do not change to Visual Mode when selecting text using mouse
-set mouse-=a
-
-" Disable error bells
-set noerrorbells
-
-" Don’t reset cursor to start of line when moving around.
-set nostartofline
-
-" Show the cursor position
-set ruler
-
-" Don’t show the intro message when starting vim
-set shortmess=atI
-
-" Show the current mode
-set showmode
-
-" Show the filename in the window titlebar
-set title
-
-" Show the (partial) command as it’s being typed
-set showcmd
-
-" use the file type plugins
-filetype plugin on
-
-" Save a file as root when using :W
-command W w !sudo tee % >/dev/null
-
-" Colorscheme
-colorscheme molokai
-
-" omni completion
-filetype plugin on
-"set omnifunc=syntaxcomplete#Complete
-let g:SuperTabDefaultCompletionType = "\<c-x>\<c-o>"
-"let g:SuperTabDefaultCompletionType = "context"
-
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-au BufReadPost Vagrantfile set syntax=ruby
-
+" show insivibles
+"set listchars=tab:»\ ,space:·,nbsp:·,trail:·
+set listchars=tab:»\ ,nbsp:·,trail:·
+set list
+" 80 chars bar
 if version >= 703
     set colorcolumn=80
 endif
+" jk to <esc>
+inoremap jk <esc>
+" Make tabs as wide as four spaces
+set smarttab
+set tabstop=4
+set shiftwidth=4
+set expandtab
 
-" check syntax on open
-let g:syntastic_check_on_open=1
+set backspace=2 " make backspace work like most other programs
 
+
+" -----------------------------------------------
+" Plugin settings
+" -----------------------------------------------
+" neomake - https://github.com/neomake/neomake
+" enable lint on save
+autocmd! BufWritePost * Neomake
+
+" onedark - https://github.com/joshdick/onedark.vim
+colorscheme onedark
+
+" sim-signify - https://github.com/mhinz/vim-signify
+" Enable line highlighting in addition to using signs by default.
+let g:signify_line_highlight = 0
+
+" vim-ariline - https://github.com/vim-airline/vim-airline 
+let g:airline#extensions#tabline#enabled = 1
+" Powerline fonts for vim-airline
+let g:airline_powerline_fonts = 1
+
+" ctrlp.vim - https://github.com/ctrlpvim/ctrlp.vim
+" Change the default mapping and the default command to invoke CtrlP
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+"  When invoked without an explicit starting directory, CtrlP will set its local working directory according to this variable
+" let g:ctrlp_working_path_mode = 'ra'
+" If a file is already open, open it again in a new pane instead of switching to the existing pane
+" let g:ctrlp_switch_buffer = 'et'
+
+" fzf.vim - https://github.com/junegunn/fzf.vim
+" mappings
+nnoremap <silent> <C-p> :Files<cr>
+nnoremap <silent> <C-b> :Buffers<cr>
+nnoremap <silent> <C-m> :Marks<cr>
+nnoremap <silent> <C-f> :GGrep<cr>
+" configuring size
+let g:fzf_layout = { 'down': '~40%' }
+" defining GGrep with preview - use ' in the beginning for exact matches
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel')[0] }), <bang>0)
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+" deoplete.nvim - https://github.com/Shougo/deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+set cmdheight=2
+" let g:deoplete#auto_complete_delay = 150
+let g:deoplete#auto_refresh_delay = 100
+let g:ignore_case = 1
+"" set tab complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+
+" improving brackets highlighting (the default is quite misleading)
+hi MatchParen cterm=none ctermbg=none ctermfg=blue
+
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 let g:syntastic_error_symbol = 'E→'
 let g:syntastic_style_error_symbol = 'S→'
 let g:syntastic_warning_symbol = 'W→'
 let g:syntastic_style_warning_symbol = '~S'
 
-" allow transparency from terminal
-hi Normal ctermfg=252 ctermbg=none
-
-" spell checker
-" set spell
-"set spelllang=en
-
-" show invisibles
-set list
-set listchars=tab:>•,trail:•,extends:>,precedes:<,nbsp:•
-
-" improving brackets highlighting (the default is quite misleading)
-hi MatchParen cterm=none ctermbg=none ctermfg=blue
-
-autocmd filetype crontab setlocal nobackup nowritebackup
+" echodoc
+let g:echodoc#enable_at_startup = 1
