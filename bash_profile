@@ -61,58 +61,7 @@ function cd {
 }
 
 source ~/.fzf.bash
-#source ~/.bnw_dotfile
 
 #export PATH="$(brew --prefix qt@5.5)/bin:$PATH"
-
-function bnw_bastion {
-  user=mcarlos
-
-  environment=$1
-  stage=$2
-  region=$3
-  [[ -z "${region}" ]] && region='eu-west-1'
-
-  ip=$(bnw_ips bastion $environment $stage $region)
-  ssh -l $user -A $ip
-}
-
-function bnw_ips {
-  app=$1
-  environment=$2
-  stage=$3
-  region=$4
-  [[ -z "${region}" ]] && region='eu-west-1'
-  aws ec2 describe-instances --filters "Name=tag:Application,Values=$app" "Name=instance-state-name,Values=running" --profile ${environment}-${stage} --region ${region} --query 'Reservations[*].Instances[*].[PrivateIpAddress]' --output text
-}
-
-function bnw_ssh {
-  user=mcarlos
-
-  app=$1
-  environment=$2
-  stage=$3
-  region=$4
-  [[ -z "${region}" ]] && region='eu-west-1'
-
-  bastion=$(bnw_ips bastion $environment $stage $region)
-
-  ips=$(bnw_ips $app $environment $stage $region)
-  total=$(echo "$ips" | wc -l)
-
-  if [[ "$total" -gt 1 ]]; then
-    select ip_item in $ips; do
-      case $ip_item in
-        *)
-          ip=$ip_item;
-          break;
-      esac
-    done
-  else
-    ip=$ips
-  fi
-  ssh -o ProxyCommand="ssh -W %h:%p ${user}@${bastion}" ${user}@${ip}
-}
-
 
 export PATH="$HOME/go/bin/:$HOME/bin:$PATH"
