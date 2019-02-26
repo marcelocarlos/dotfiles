@@ -41,7 +41,7 @@ if [ -f "/var/log/auth.log" ] ; then
     echo -e "Failed login attempts: $(grep 'Failed password' /var/log/auth.log* | wc -l)"
 fi
 
-# initialize rbenv 
+# initialize rbenv
 eval "$(rbenv init -)"
 
 # initialize gpg daemon

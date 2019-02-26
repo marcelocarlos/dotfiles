@@ -3,7 +3,7 @@
 
 # use neovim
 alias vi="vim"
-alias vim="nvim"
+alias vim="vim"
 
 # Navigation
 alias ..="cd .."
@@ -99,7 +99,16 @@ if [[ "$OSTYPE" =~ ^linux ]]; then
 fi
 
 # git stuff
-alias gcp="git commit --author='Marcelo Carlos <contact@marcelocarlos.com>'"
+alias gc="git commit"
+alias ga="git add"
+alias gst="git status"
+alias gl="git pull"
+alias gp="git push"
+alias gcpersonal="git commit --author='Marcelo Carlos <contact@marcelocarlos.com>'"
+alias gcl="clean clean -fxd"
+alias gco="git checkout"
+alias glg='git log --graph --oneline --decorate --all'
+alias gld='git log --pretty=format:"%h %ad %s" --date=short --all'
 
 # fix crontab on OSX
 alias crontab="VIM_CRONTAB=true crontab"
@@ -108,3 +117,7 @@ alias crontab="VIM_CRONTAB=true crontab"
 alias rspec='rspec --format=documentation'
 
 alias be='bundle exec'
+
+# generate random passwords
+alias pwg='pwgen -B -s 16 1'
+alias pwgs='pwgen -B -y -s 16 1'

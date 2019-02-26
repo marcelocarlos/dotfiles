@@ -1,3 +1,4 @@
+#!/bin/bash
 # Created by Marcelo C. Carlos
 # Modified setup from https://github.com/mathiasbynens/dotfiles
 #
@@ -79,7 +80,7 @@ function parse_git_info {
             branch="NO BRANCH"
         fi
 
-        echo "[git: ${branch}${remote}${state}]"
+	echo "[git: ${branch}${remote}${state}] "
     fi
     return
 }
@@ -92,6 +93,13 @@ function parse_user {
     fi
 }
 
+function get_aws_credentials {
+  profile=$(ls -la ~/.aws/credentials | awk '{ print $11; }' | cut -d'.' -f2)
+  if [ ! -z "$profile" ]; then
+    echo "$MAGENTA(${profile})$RESET"
+  fi
+}
+
 function get_ps1 {
    EXIT_STATUS="$?"
     if [ "${EXIT_STATUS}" -eq 0  ]; then
@@ -100,7 +108,7 @@ function get_ps1 {
         EXIT_DISPLAY="${RED}$EXIT_STATUS${RESET}"
     fi
 
-    PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$BLACK\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\][\D{%T} - ${EXIT_DISPLAY}] \[$YELLOW\]\$(parse_git_info)\[$BLACK\]\n\$ \[$RESET\]"
+    PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$WHITE\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\][\D{%T} - ${EXIT_DISPLAY}] \[$YELLOW\]\$(parse_git_info)\$(get_aws_credentials)\[$BOLD\]\[$BLACK\]\n\$ \[$RESET\]"
 }
 
 PROMPT_COMMAND=get_ps1

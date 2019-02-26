@@ -2,7 +2,7 @@
 # Modified setup from https://github.com/mathiasbynens/dotfiles
 
 # Make vim the default editor
-export EDITOR="vim"
+export EDITOR="nvim"
 
 # Don’t clear the screen after quitting a manual page
 export MANPAGER="less -X"
@@ -11,7 +11,7 @@ export MANPAGER="less -X"
 export LESS_TERMCAP_md="$GREEN"
 
 # Larger bash history (allow 50000 entries; default is 500)
-export HISTSIZE=50000
+export HISTSIZE=100000
 export HISTFILESIZE=$HISTSIZE
 export HISTCONTROL=ignoredups
 # Display dates and times in history
@@ -23,6 +23,9 @@ HOMEBREW_NO_GITHUB_API=1
 # Make some commands not show up in history
 #export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
+# include the correct rbenv path
+export PATH="${PATH}:$(which rbenv | xargs realpath | xargs dirname)"
+
 # Path
 export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$PATH
 
@@ -32,8 +35,5 @@ if [ -d "$HOME/bin" ] ; then
 fi
 
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:${PATH}"
-
-# include the correct rbenv path
-export PATH="${PATH}:$(which rbenv | xargs realpath | xargs dirname)"
 
 export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"

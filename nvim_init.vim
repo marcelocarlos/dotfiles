@@ -19,6 +19,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'joshdick/onedark.vim'
+Plug 'djoshea/vim-autoread'
 "Plug 'fishbullet/deoplete-ruby'
 
 call plug#end()

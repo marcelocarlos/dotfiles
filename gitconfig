@@ -15,6 +15,8 @@ co = checkout
 url = remote show origin
 # branching
 br = branch
+# show the most recent branches you worked on
+recent = for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
 
 [apply]
 # Detect whitespace errors when applying a patch
@@ -66,3 +68,14 @@ path = ~/.gitlocal/user
 	patterns = (\"|')?(AWS|aws|Aws)?_?(ACCOUNT|account|Account)_?(ID|id|Id)?(\"|')?\\s*(:|=>|=)\\s*(\"|')?[0-9]{4}\\-?[0-9]{4}\\-?[0-9]{4}(\"|')?
 	allowed = AKIAIOSFODNN7EXAMPLE
 	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
+	allowed = 129462528407
+	allowed = 391051114024
+[commit]
+	gpgsign = true
+[user]
+	signingkey = 29D83033051B4855
+[gpg]
+	program = gpg
+
+[github]
+    organization = simplybusiness
