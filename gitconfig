@@ -70,6 +70,7 @@ path = ~/.gitlocal/user
 	allowed = wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY
 	allowed = 129462528407
 	allowed = 391051114024
+	patterns = (A3T[A-Z0-9]|AKIA|AGPA|AIDA|AROA|AIPA|ANPA|ANVA|ASIA)[A-Z0-9]{16}
 [commit]
 	gpgsign = true
 [user]

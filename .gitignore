@@ -2,6 +2,5 @@ vim/swaps/
 todo/*.txt
 todo/*.bak
 dotfile_src_private
-
 vim/plugged
 vim/autoload
