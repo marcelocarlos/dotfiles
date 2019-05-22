@@ -32,10 +32,18 @@ Plug 'zchee/deoplete-go', { 'do': 'make'}
 Plug 'vim-syntastic/syntastic'
 " Plug 'ervandew/supertab'
 Plug 'Shougo/echodoc.vim'
+
+Plug 'tpope/vim-sensible'
+" Plug 'nathanaelkane/vim-indent-guides'
+Plug 'scrooloose/nerdtree'
+Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+Plug 'wincent/terminus'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 " -----------------------------------------------
-" Global Settings 
+" Global Settings
 " -----------------------------------------------
 " syntax highlighting
 " syntax on
@@ -63,8 +71,8 @@ if exists("&undodir")
 endif
 silent !mkdir ~/.vim/backups > /dev/null 2>&1
 silent !mkdir ~/.vim/swaps > /dev/null 2>&1
-" show insivibles
-"set listchars=tab:»\ ,space:·,nbsp:·,trail:·
+" show invisibles
+" set listchars=tab:»\ ,space:·,nbsp:·,trail:·
 set listchars=tab:»\ ,nbsp:·,trail:·
 set list
 " 80 chars bar
@@ -81,6 +89,11 @@ set expandtab
 
 set backspace=2 " make backspace work like most other programs
 
+" trim trailing spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
+
+" default encoding
+set encoding=UTF-8
 
 " -----------------------------------------------
 " Plugin settings
@@ -96,7 +109,7 @@ colorscheme onedark
 " Enable line highlighting in addition to using signs by default.
 let g:signify_line_highlight = 0
 
-" vim-ariline - https://github.com/vim-airline/vim-airline 
+" vim-ariline - https://github.com/vim-airline/vim-airline
 let g:airline#extensions#tabline#enabled = 1
 " Powerline fonts for vim-airline
 let g:airline_powerline_fonts = 1
@@ -114,7 +127,7 @@ let g:airline_powerline_fonts = 1
 " mappings
 nnoremap <silent> <C-p> :Files<cr>
 nnoremap <silent> <C-b> :Buffers<cr>
-nnoremap <silent> <C-m> :Marks<cr>
+" nnoremap <silent> <C-m> :Marks<cr>
 nnoremap <silent> <C-f> :GGrep<cr>
 " configuring size
 let g:fzf_layout = { 'down': '~40%' }
@@ -154,3 +167,15 @@ let g:syntastic_style_warning_symbol = '~S'
 
 " echodoc
 let g:echodoc#enable_at_startup = 1
+
+" nerdtree
+map <C-n> :NERDTreeToggle<CR>
+
+" nerdcommenter
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" jenkinsfile syntax highlighting
+au BufNewFile,BufRead Jenkinsfile setf groovy
