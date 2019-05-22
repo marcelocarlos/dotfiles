@@ -43,12 +43,6 @@ function install_it() {
             ln -s ${EXTRA_PARAM} "${APP_PATH}/$dotfile" "$HOME/.$dotfile"
         fi
     done
-    mkdir -p ~/.config/nvim
-    if [ $LINK_FILES == 0 ]; then
-        cp -r ${EXTRA_PARAM} "${APP_PATH}/nvim_init.vim" "$HOME/.config/nvim/init.vim"
-    else
-        ln -s ${EXTRA_PARAM} "${APP_PATH}/nvim_init.vim" "$HOME/.config/nvim/init.vim"
-    fi
     echo "Done."
     echo ""
 }
