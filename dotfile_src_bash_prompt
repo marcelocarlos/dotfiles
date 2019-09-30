@@ -94,10 +94,11 @@ function parse_user {
 }
 
 function get_aws_credentials {
-  profile=$(ls -la ~/.aws/credentials | awk '{ print $11; }' | cut -d'.' -f2)
-  if [ ! -z "$profile" ]; then
-    echo "$MAGENTA(${profile})$RESET"
-  fi
+  return 0
+  # profile=$(ls -la ~/.aws/credentials | awk '{ print $11; }' | cut -d'.' -f2)
+  # if [ ! -z "$profile" ]; then
+  #   echo "$MAGENTA(${profile})$RESET"
+  # fi
 }
 
 function get_ps1 {

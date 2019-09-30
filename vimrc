@@ -95,6 +95,13 @@ autocmd BufWritePre * :%s/\s\+$//e
 " default encoding
 set encoding=UTF-8
 
+" spell checking
+autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_gb
+
+" disable mouse
+set mouse=
+set ttymouse=
+
 " -----------------------------------------------
 " Plugin settings
 " -----------------------------------------------
@@ -127,7 +134,7 @@ let g:airline_powerline_fonts = 1
 " mappings
 nnoremap <silent> <C-p> :Files<cr>
 nnoremap <silent> <C-b> :Buffers<cr>
-" nnoremap <silent> <C-m> :Marks<cr>
+nnoremap <silent> <C-l> :Marks<cr>
 nnoremap <silent> <C-f> :GGrep<cr>
 " configuring size
 let g:fzf_layout = { 'down': '~40%' }
@@ -156,6 +163,7 @@ hi MatchParen cterm=none ctermbg=none ctermfg=blue
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+let g:syntastic_loc_list_height = 4
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -170,6 +178,7 @@ let g:echodoc#enable_at_startup = 1
 
 " nerdtree
 map <C-n> :NERDTreeToggle<CR>
+map <leader>r :NERDTreeFind<CR>
 
 " nerdcommenter
 " Add spaces after comment delimiters by default
