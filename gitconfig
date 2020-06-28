@@ -29,10 +29,16 @@ excludesfile = ~/.gitignore
 # Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
 whitespace = space-before-tab,indent-with-non-tab,trailing-space
 # allowing line wrapping when using diff
-pager = less -r
+# pager = less -r
+pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+
+[pager]
+	log = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+	show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+	diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
 
 [color]
-ui = auto
+ui = always
 branch = auto
 diff = auto
 status = auto
@@ -47,11 +53,19 @@ meta = yellow bold
 frag = magenta bold
 old = red bold
 new = green bold
+commit = green bold
+whitespace = red reverse bold
 
 [color "status"]
 added = yellow
 changed = green
 untracked = cyan
+
+[color "diff-highlight"]
+oldNormal = red bold
+oldHighlight = red bold 52
+newNormal = green bold
+newHighlight = green bold 22
 
 [merge]
 # Include summaries of merged commits in newly created merge commit messages

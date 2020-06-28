@@ -40,6 +40,8 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'wincent/terminus'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'hashivim/vim-terraform'
+Plug 'juliosueiras/vim-terraform-completion'
 call plug#end()
 
 " -----------------------------------------------
@@ -188,3 +190,6 @@ let g:NERDCompactSexyComs = 1
 
 " jenkinsfile syntax highlighting
 au BufNewFile,BufRead Jenkinsfile setf groovy
+
+" clipboard integration
+set clipboard=unnamed

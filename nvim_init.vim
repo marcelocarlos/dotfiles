@@ -1,152 +1,191 @@
 " ------------------------------------------------
 " Plugins
 " ------------------------------------------------
-call plug#begin('~/.config/nvim/plugged')
+call plug#begin(stdpath('data') . '/plugged')
 
 " General
-Plug 'benekastah/neomake'
-" Plug 'Raimondi/delimitMate'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'ervandew/supertab'
-Plug 'tomasr/molokai'
-Plug 'airblade/vim-gitgutter'
+Plug 'neomake/neomake'
+Plug 'joshdick/onedark.vim'
+Plug 'mhinz/vim-signify'
+Plug 'tpope/vim-fugitive'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'zchee/deoplete-jedi'
-Plug 'tpope/vim-fugitive'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'joshdick/onedark.vim'
+Plug '/usr/local/opt/fzf'
+Plug 'junegunn/fzf.vim'
 Plug 'djoshea/vim-autoread'
-"Plug 'fishbullet/deoplete-ruby'
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'vim-syntastic/syntastic'
+" Plug 'ervandew/supertab'
+Plug 'Shougo/echodoc.vim'
 
+Plug 'tpope/vim-sensible'
+" Plug 'nathanaelkane/vim-indent-guides'
+Plug 'scrooloose/nerdtree'
+Plug 'tomtom/tcomment_vim'
+Plug 'tpope/vim-surround'
+Plug 'wincent/terminus'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'hashivim/vim-terraform'
+Plug 'juliosueiras/vim-terraform-completion'
 call plug#end()
 
-" -------------------------------------------------
-" Settings
-" -------------------------------------------------
-" enable syntax highlighting
+
+" -----------------------------------------------
+" Global Settings
+" -----------------------------------------------
+" syntax highlighting
+" syntax on
 syntax on filetype plugin indent on
-
-" Dark background
-set background=dark
-
 " line numbers
 set number
-
-" linebreaks
-set linebreak
-
-" toggle autoindent
-set autoindent
-
-" more powerful backspacing
-set backspace=indent,eol,start
-
-" Enhance command-line completion
-set wildmenu
-
 " Highlight current line
 set cursorline
-
+" linebreaks
+set linebreak
+" Show the (partial) command as it’s being typed
+set showcmd
+" Enhance command-line completion
+set wildmenu
+" Highlight searches
+set hlsearch
+" Highlight dynamically as pattern is typed
+set incsearch
+" Centralize backups, swapfiles and undo history
+set backupdir=~/.vim/backups
+set directory=~/.vim/swaps
+if exists("&undodir")
+	set undodir=~/.vim/undo
+    silent !mkdir ~/.vim/undo > /dev/null 2>&1
+endif
+silent !mkdir ~/.vim/backups > /dev/null 2>&1
+silent !mkdir ~/.vim/swaps > /dev/null 2>&1
+" show invisibles
+" set listchars=tab:»\ ,space:·,nbsp:·,trail:·
+set listchars=tab:»\ ,nbsp:·,trail:·
+set list
+" 80 chars bar
+if version >= 703
+    set colorcolumn=80
+endif
+" jk to <esc>
+inoremap jk <esc>
 " Make tabs as wide as four spaces
 set smarttab
 set tabstop=4
 set shiftwidth=4
 set expandtab
 
-" Show the cursor position
-set ruler
+set backspace=2 " make backspace work like most other programs
 
-" Add a 80 char column marker
-if version >= 703
-    set colorcolumn=80
-endif
+" trim trailing spaces on save
+autocmd BufWritePre * :%s/\s\+$//e
 
-" Don’t show the intro message when starting vim
-set shortmess=atI
+" default encoding
+set encoding=UTF-8
 
-" Show the filename in the window titlebar
-set title
+" spell checking
+autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_gb
 
-" Show the (partial) command as it’s being typed
-set showcmd
+" disable mouse
+set mouse=
 
-" Show invisibles
-set list lcs=trail:·,tab:»·,nbsp:·
-
-" Do not change to Visual Mode when selecting text using mouse
-set mouse-=a
-
-" utf8 enconding
-set encoding=utf-8
-
-" Plugin benekastah/neomake config
+" -----------------------------------------------
+" Plugin settings
+" -----------------------------------------------
+" neomake - https://github.com/neomake/neomake
 " enable lint on save
 autocmd! BufWritePost * Neomake
 
-" molokai color scheme
-"colorscheme molokai
-set termguicolors
+" onedark - https://github.com/joshdick/onedark.vim
 colorscheme onedark
 
-" Use deoplete.
-let g:deoplete#enable_at_startup = 1
+" sim-signify - https://github.com/mhinz/vim-signify
+" Enable line highlighting in addition to using signs by default.
+let g:signify_line_highlight = 0
 
+" vim-ariline - https://github.com/vim-airline/vim-airline
+let g:airline#extensions#tabline#enabled = 1
 " Powerline fonts for vim-airline
 let g:airline_powerline_fonts = 1
 
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
+" ctrlp.vim - https://github.com/ctrlpvim/ctrlp.vim
+" Change the default mapping and the default command to invoke CtrlP
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+"  When invoked without an explicit starting directory, CtrlP will set its local working directory according to this variable
+" let g:ctrlp_working_path_mode = 'ra'
+" If a file is already open, open it again in a new pane instead of switching to the existing pane
+" let g:ctrlp_switch_buffer = 'et'
 
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
+" fzf.vim - https://github.com/junegunn/fzf.vim
+" mappings
+nnoremap <silent> <C-p> :Files<cr>
+nnoremap <silent> <C-l> :Buffers<cr>
+nnoremap <silent> <C-t> :Marks<cr>
+nnoremap <silent> <C-f> :GGrep<cr>
+" configuring size
+let g:fzf_layout = { 'down': '~40%' }
+" defining GGrep with preview - use ' in the beginning for exact matches
+command! -bang -nargs=* GGrep
+  \ call fzf#vim#grep(
+  \   'git grep --line-number '.shellescape(<q-args>), 0,
+  \   fzf#vim#with_preview({ 'dir': systemlist('git rev-parse --show-toplevel')[0] }), <bang>0)
+" Similarly, we can apply it to fzf#vim#grep. To use ripgrep instead of ag:
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
-" Open a NERDTree automatically when vim starts up
-"autocmd vimenter * NERDTreeTabsOpen
-" Toggle nerdtree with Ctrl+/
-map <C-_> :NERDTreeTabsToggle<CR>
-" Close vim if the only window left open is a NERDTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-" Open NERDTree automatically when vim starts up on opening a directory
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-" Open a NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" deoplete.nvim - https://github.com/Shougo/deoplete.nvim
+let g:deoplete#enable_at_startup = 1
+set cmdheight=2
+" let g:deoplete#auto_complete_delay = 150
+let g:deoplete#auto_refresh_delay = 100
+let g:ignore_case = 1
+"" set tab complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
-" esc esc to leave terminal mode
-tnoremap <esc><esc> <C-\><C-n>
+" improving brackets highlighting (the default is quite misleading)
+hi MatchParen cterm=none ctermbg=none ctermfg=blue
 
-" Using buffers properly
-" This allows buffers to be hidden if you've modified a buffer.
-set hidden
-command Bq bp <BAR> bd #
-command Bnew enew
-command Bn bnext
-command Bp bprevious
-command Bl ls
-" Alternate buffers with \<number>
-" \l       : list buffers
-" \b \f \g : go back/forward/last-used
-" \1 \2 \3 : go to buffer 1/2/3 etc
-nnoremap <Leader>l :ls<CR>
-nnoremap <Leader>b :bp<CR>
-nnoremap <Leader>f :bn<CR>
-nnoremap <Leader>g :e#<CR>
-nnoremap <Leader>q :Bq<CR>
-nnoremap <Leader>1 :1b<CR>
-nnoremap <Leader>2 :2b<CR>
-nnoremap <Leader>3 :3b<CR>
-nnoremap <Leader>4 :4b<CR>
-nnoremap <Leader>5 :5b<CR>
-nnoremap <Leader>6 :6b<CR>
-nnoremap <Leader>7 :7b<CR>
-nnoremap <Leader>8 :8b<CR>
-nnoremap <Leader>9 :9b<CR>
-nnoremap <Leader>0 :10b<CR>
+" syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_loc_list_height = 4
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+let g:syntastic_error_symbol = 'E→'
+let g:syntastic_style_error_symbol = 'S→'
+let g:syntastic_warning_symbol = 'W→'
+let g:syntastic_style_warning_symbol = '~S'
 
-" jk to <esc>
-:inoremap jk <esc>
+" echodoc
+let g:echodoc#enable_at_startup = 1
+
+" nerdtree
+map <C-n> :NERDTreeToggle<CR>
+map <leader>r :NERDTreeFind<CR>
+
+" nerdcommenter
+" Add spaces after comment delimiters by default
+let g:NERDSpaceDelims = 1
+" Use compact syntax for prettified multi-line comments
+let g:NERDCompactSexyComs = 1
+
+" jenkinsfile syntax highlighting
+au BufNewFile,BufRead Jenkinsfile setf groovy
+
+" Clipboard integration
+set clipboard=unnamed
+
+" Show openend file on NerdTree
+nmap <C-s> :NERDTreeFind<CR>

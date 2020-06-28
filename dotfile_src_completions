@@ -63,3 +63,5 @@ complete -F _completemarks jump j unmark
 # enable autocompletion for the alias (if the command exists)
 # TODO: MOVE CHEATSHEETS COMPLETION HERE
 command -v cheatsheets.sh >/dev/null && complete -F _cheatsheets_autocomplete cs
+
+source <(kubectl completion bash) # setup autocomplete in bash into the current shell, bash-completion package should be installed first.

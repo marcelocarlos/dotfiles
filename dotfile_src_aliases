@@ -2,13 +2,16 @@
 # Some aliases where based on those found on: https://github.com/mathiasbynens/dotfiles
 
 # use neovim
-alias vi="vim"
-alias vim="vim"
+alias vi="nvim"
+alias vim="nvim"
 
 # Navigation
 alias ..="cd .."
 alias ...="cd ../.."
 alias ....="cd ../../.."
+alias .3="cd ../../.."
+alias .....="cd ../../../.."
+alias .4="cd ../../../.."
 alias -- -="cd -"
 alias la="ls -Gla"
 alias lsd='ls -l | grep "^d"'

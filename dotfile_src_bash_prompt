@@ -101,6 +101,37 @@ function get_aws_credentials {
   # fi
 }
 
+
+function k8s_context {
+  local stage=$(echo -n "[k8s: $(kubectl config current-context)]")
+  if [ "$stage" == "[k8s: production]" ]; then
+    echo -ne "$BOLD$RED$stage$RESET"
+  else
+    echo -ne "$GREEN$stage$RESET"
+  fi
+}
+
+function gcloud_config {
+  local stage=$(echo -n "[gcp: $(cat ~/.config/gcloud/active_config)]")
+  if [ "$stage" == "[gcp: production]" ]; then
+    echo -ne "$BOLD$RED$stage$RESET"
+  else
+    echo -ne "$GREEN$stage$RESET"
+  fi
+}
+
+function terraform_workspace {
+#   if [ "$(terraform show)" != "No state." ]; then
+    local stage=$(echo -ne "[tf: $(terraform workspace show)]")
+    if [ "$stage" == "[tf: production]" ]; then
+      echo -ne "$BOLD$RED$stage$RESET"
+    elif [ "$stage" == "[tf: default]" ]; then
+	echo -ne "$stage"
+    else
+      echo -ne "$GREEN$stage$RESET"
+    fi
+}
+
 function get_ps1 {
    EXIT_STATUS="$?"
     if [ "${EXIT_STATUS}" -eq 0  ]; then
@@ -109,7 +140,8 @@ function get_ps1 {
         EXIT_DISPLAY="${RED}$EXIT_STATUS${RESET}"
     fi
 
-    PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$WHITE\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\][\D{%T} - ${EXIT_DISPLAY}] \[$YELLOW\]\$(parse_git_info)\$(get_aws_credentials)\[$BOLD\]\[$BLACK\]\n\$ \[$RESET\]"
+    # PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$WHITE\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\][\D{%T} - ${EXIT_DISPLAY}] \[$YELLOW\]\$(parse_git_info)\$(gcloud_config) \$(k8s_context) \$(terraform_workspace)\[$BOLD\]\[$BLACK\]\n\$ \[$RESET\]"
+    PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] - $(parse_user) - \D{%T} - ${EXIT_DISPLAY}] \[$YELLOW\]\$(parse_git_info)\$(gcloud_config) \$(k8s_context) \$(terraform_workspace)\[$BOLD\]\[$BLACK\]\n\$ \[$RESET\]"
 }
 
 PROMPT_COMMAND=get_ps1
