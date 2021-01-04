@@ -9,8 +9,8 @@ I strongly recommend you to have a look at the files in this repo before startin
 ```shell
 # if you don't want to clone the repo, you can download the files using:
 # curl -LO https://github.com/marcelocarlosbr/dotfiles/archive/master.zip && unzip master
-git clone --recursive https://github.com/marcelocarlosbr/dotfiles.git
-cd dotfiles # dotfiles-master if you downloaded the zip file instead of cloning the repo
+git clone https://github.com/marcelocarlosbr/dotfiles.git
+cd dotfiles # 'cd dotfiles-master' if you downloaded the zip file instead of cloning the repo
 ./setup.sh
 ```
 
