@@ -198,9 +198,9 @@ print_yellow "IMPORTANT: Open iterm2 preferences (General > Preferences) and ens
 echo
 
 # apply the changes to the current session
-set +e
+set +eu
 source ~/.bash_profile
-set -e
+set -eu
 print_green "Done."
 echo
 
