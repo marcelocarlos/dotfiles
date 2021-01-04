@@ -1,6 +1,6 @@
-#!/bin/bash
-# copyfile.sh
-# Copyright 2014 - Marcelo Carlos (contact@marcelocarlos.com)
+#!/usr/bin/env bash
+# Created by Marcelo Carlos (contact@marcelocarlos.com)
+# Source: https://github.com/marcelocarlosbr/dotfiles
 
 # ------------------------------------------------------------------------------
 # Settings

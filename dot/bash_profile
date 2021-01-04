@@ -1,0 +1,63 @@
+# Created by Marcelo Carlos (contact@marcelocarlos.com)
+# Source: https://github.com/marcelocarlosbr/dotfiles
+
+# ------------------------------------------------------------------------------
+# Load dotfiles
+# ------------------------------------------------------------------------------
+for file in $(ls ~/.dot_*); do
+  [ -r "$file" ] && source "$file"
+done
+unset file
+
+# ------------------------------------------------------------------------------
+# Tweak shell
+# ------------------------------------------------------------------------------
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# Save all lines of a multiple-line command in the same history entry
+shopt -q -s cmdhist
+
+# Make sure display get updated when terminal window get resized
+shopt -q -s checkwinsize
+
+# Bash completion
+if [ "$(uname)" == "Darwin" ]; then
+  # Enabling bash-completion (you need to install bash-completion first)
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  fi
+fi
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
+# Print the number of failed login attempts
+if [ -f "/var/log/auth.log" ] ; then
+    echo -e "Failed login attempts: $(grep 'Failed password' /var/log/auth.log* | wc -l)"
+fi
+
+# ------------------------------------------------------------------------------
+# Additional settings and initializations
+# ------------------------------------------------------------------------------
+# initialize gpg daemon
+eval $(gpg-agent --daemon)
+
+# rbenv
+eval "$(rbenv init -)"
+
+# fzf
+source ~/.fzf.bash
+
+# gcloud
+source "$(brew --prefix)/Caskroom/google-cloud-sdk/latest/google-cloud-sdk/path.bash.inc"

@@ -1,30 +1,17 @@
 # Marcelo's dotfiles
 
+This repository serves me as a way to help me setup and maintain my Mac and share settings and ideas that might be useful. Inspired by [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles). Feel free to explore, learn, copy and suggest improvements. Enjoy!
+
 ## Installation
 
-### Using Git (Recommended)
+I strongly recommend you to have a look at the files in this repo before starting. The minimum I suggest to to check the [Brewfile](./Brewfile) to ensure the applications in there suit your needs. Once you are happy with it, run:
 
-Clone the repository wherever you want and the linkfile.sh script will do the rest.
-
-```bash
+```shell
+# if you don't want to clone the repo, you can download the files using:
+# curl -LO https://github.com/marcelocarlosbr/dotfiles/archive/master.zip && unzip master
 git clone --recursive https://github.com/marcelocarlosbr/dotfiles.git
-cd dotfiles
-./install.sh -lf # remove '-ĺ' if you want to copy instead of symlink; remove '-f' to be prompted before every delete/overwrite action.
+cd dotfiles # dotfiles-master if you downloaded the zip file instead of cloning the repo
+./setup.sh
 ```
 
-### Without Git
-
-To install these dotfiles without Git (note that this method will not download the plugins for vim automatically):
-
-```bash
-wget https://github.com/marcelocarlosbr/dotfiles/archive/master.zip
-unzip master
-cd dotfiles-master
-./install.sh -f # remove '-f' to be prompted before every delete/overwrite action.
-```
-
-After that you can remove the dotfiles-master folder, since in this installation type the files are copied rather than linked
-
-## Additional information
-
-You can easily add custom/private dotfiles and have them sourced automatically by adding them to your `$HOME` directory using the prefix `.dotfile_src_` (e.g. `~/.dotfile_src_secrets`).
+The setup command will install the applications defined in the [`Brewfile`](./Brewfile) and setup a series of dotfiles to fine tune items such as environment variables, aliases, completions, vim, and others. You can easily add custom dotfiles and have them sourced automatically by adding them to your `$HOME` directory using the prefix `.dot_` (e.g. `~/.dot_my_custom_file`).

@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+# Created by Marcelo Carlos (contact@marcelocarlos.com)
+# Source: https://github.com/marcelocarlosbr/dotfiles
+xset r rate 500 33

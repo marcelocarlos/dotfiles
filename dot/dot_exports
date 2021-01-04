@@ -1,5 +1,5 @@
-# Created by Marcelo C. Carlos
-# Modified setup from https://github.com/mathiasbynens/dotfiles
+# Created by Marcelo Carlos (contact@marcelocarlos.com)
+# Source: https://github.com/marcelocarlosbr/dotfiles
 
 # Make vim the default editor
 export EDITOR="vim"
@@ -18,22 +18,22 @@ export HISTCONTROL=ignoredups
 export HISTTIMEFORMAT="%d-%h-%y %T | "
 
 # Stop brew from complaining about keychain credentials
-HOMEBREW_NO_GITHUB_API=1
+export HOMEBREW_NO_GITHUB_API=1
 
-# Make some commands not show up in history
-#export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
+# # Make some commands not show up in history
+# export HISTIGNORE="ls:ls *:cd:cd -:pwd;exit:date:* --help"
 
+# ------------------------------------------------------------------------------
+# Path
+# ------------------------------------------------------------------------------
 # include the correct rbenv path
 export PATH="${PATH}:$(which rbenv | xargs realpath | xargs dirname)"
-
-# Path
-export PATH=/opt/local/bin:/opt/local/sbin:/usr/local/bin:/usr/local/sbin:$PATH
-
+# extra paths
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
 # set PATH to include user's private bin if it exists
 if [ -d "$HOME/bin" ] ; then
-    PATH="$HOME/bin:$PATH"
+    export PATH="$HOME/bin:$PATH"
 fi
-
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:/usr/local/sbin:${PATH}"
-
-export MANPATH="/usr/local/opt/coreutils/libexec/gnuman:$MANPATH"
+# ensure gnu tools are used
+export PATH="$(brew --prefix)/opt/coreutils/libexec/gnubin:$PATH"
+export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman"

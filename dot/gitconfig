@@ -1,0 +1,63 @@
+[alias]
+  # log with hash, date, name, branch and comments
+  lg = log --pretty=format:\"%h %ad [%an] |%d %s \" --graph --date=short --topo-order
+  # View the current working tree status
+  st = status
+  # Diff
+  df = diff --patch-with-stat
+  # Commit
+  ci = commit
+  # Checkout
+  co = checkout
+  # Create a new branch and switch to it
+  cob = checkout -b
+  # remote show origin
+  url = remote show origin
+  # List all branches
+  br = branch --format='%(HEAD) %(color:yellow)%(refname:short)%(color:reset) - %(contents:subject) %(color:green)(%(committerdate:relative)) [%(authorname)]' --sort=-committerdate
+  # Delete a branch
+  del = branch -D
+  # show the most recent branches you worked on
+  recent = for-each-ref --sort=-committerdate --count=10 --format='%(refname:short)' refs/heads/
+  # rollback
+  undo = reset HEAD~1 --mixed
+
+[apply]
+  # Detect whitespace errors when applying a patch
+  whitespace = fix
+
+[core]
+  # Use custom `.gitignore` and `.gitattributes`
+  excludesfile = ~/.gitignore
+  attributesfile = ~/.gitattributes
+  # Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
+  whitespace = space-before-tab,indent-with-non-tab,trailing-space
+  # allowing line wrapping when using diff
+  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+
+[pager]
+  # use line oriented diffs, which are great for reviewing code
+  log = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+  show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+  diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+
+[color]
+  ui = always
+  branch = auto
+  diff = auto
+  status = auto
+
+[merge]
+  # Include summaries of merged commits in newly created merge commit messages
+  log = true
+
+[include]
+  # Allow you to further customize settings in a separate file (e.g. settings that you don't want to push to git)
+  path = ~/.gitconfig.local
+
+[diff "gpg"]
+  # auto-decrypt gpg-encrypted content in diffs
+  textconv = gpg --quiet --no-tty --decrypt
+
+[secrets]
+  providers = git secrets --aws-provider

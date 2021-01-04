@@ -1,7 +1,7 @@
-#!/bin/bash
-# Created by Marcelo C. Carlos
-# Modified setup from https://github.com/mathiasbynens/dotfiles
-#
+#!/usr/bin/env bash
+# Created by Marcelo Carlos (contact@marcelocarlos.com)
+# Source: https://github.com/marcelocarlosbr/dotfiles
+
 BLACK=$(tput setaf 0)
 RED=$(tput setaf 1)
 GREEN=$(tput setaf 2)
@@ -93,15 +93,6 @@ function parse_user {
     fi
 }
 
-function get_aws_credentials {
-  return 0
-  # profile=$(ls -la ~/.aws/credentials | awk '{ print $11; }' | cut -d'.' -f2)
-  # if [ ! -z "$profile" ]; then
-  #   echo "$MAGENTA(${profile})$RESET"
-  # fi
-}
-
-
 function k8s_context {
   local stage=$(echo -n "[k8s: $(kubectl config current-context)]")
   if [ "$stage" == "[k8s: production]" ]; then
@@ -139,8 +130,6 @@ function get_ps1 {
     else
         EXIT_DISPLAY="${RED}$EXIT_STATUS${RESET}"
     fi
-
-    # PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] at $(parse_user)\[$WHITE\]@\[$BOLD\]\[$BLUE\]\h \[$RESET\][\D{%T} - ${EXIT_DISPLAY}] \[$YELLOW\]\$(parse_git_info)\$(gcloud_config) \$(k8s_context) \$(terraform_workspace)\[$BOLD\]\[$BLACK\]\n\$ \[$RESET\]"
     PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] - $(parse_user) - \D{%T} - ${EXIT_DISPLAY}] \[$YELLOW\]\$(parse_git_info)\$(gcloud_config) \$(k8s_context) \$(terraform_workspace)\[$BOLD\]\[$BLACK\]\n\$ \[$RESET\]"
 }
 

@@ -4,3 +4,5 @@ todo/*.bak
 dotfile_src_private
 vim/plugged
 vim/autoload
+Brewfile.lock.json
+*.itermcolors
