@@ -63,7 +63,6 @@ cask "zoom"
 mas "Magnet", id: 441258766
 mas "Pastebot", id: 1179623856
 mas "Slack", id: 803453959
-mas "WhatsApp", id: 1147396723
 
 # Dev
 brew "python@3.9"
@@ -102,3 +101,7 @@ brew "nmap"
 brew "vault"
 cask "apparency"
 mas "1Password 7", id: 1333542190
+
+# Messaging
+cask "signal"
+mas "WhatsApp", id: 1147396723
