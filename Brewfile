@@ -52,7 +52,7 @@ brew "watch"
 brew "wget"
 brew "whois"
 cask "alfred"
-# cask "arq" # temporarily removed
+cask "arq"
 cask "betterzip"
 cask "brave-browser"
 cask "caffeine"
