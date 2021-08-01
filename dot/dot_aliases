@@ -45,6 +45,9 @@ alias reset_title="export PROMPT_COMMAND='echo -ne \"\033]0;${PWD/#$HOME/~}\007\
 # Start calculator with math support
 alias bc='bc -l'
 
+# Terraform
+alias tf='terraform'
+
 # cheatsheets (see https://github.com/marcelocarlos/cheatsheets)
 alias cs='cheatsheets.sh'
 alias csl='cheatsheets.sh -l'
