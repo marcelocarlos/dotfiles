@@ -50,7 +50,7 @@ print_yellow() {
 
 function dotfiles_setup() {
     for dotfile in $(ls -1 ${BASE_DIR}/dot); do
-      ln -s ${CMD_FLAGS} "${BASE_DIR}/dot/$dotfile" "$HOME/.$dotfile"
+      ln -sf ${CMD_FLAGS} "${BASE_DIR}/dot/$dotfile" "$HOME/.$dotfile"
     done
 }
 
@@ -116,7 +116,7 @@ fi
 # post-setup - git
 SETUP_GIT_CONFIG='n'
 if [ -f "$HOME/.gitconfig.local" ]; then
-  read -p  "It seeems $HOME/.gitconfig.local, do you want to re-create it? [Y/n] " ANSWER
+  read -p  "$HOME/.gitconfig.local already exists, do you want to re-create it? [Y/n] " ANSWER
   if [ "$ANSWER" != "n" ]; then
     SETUP_GIT_CONFIG='y'
   fi
