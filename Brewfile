@@ -76,6 +76,8 @@ cask "basictex"
 mas "Magnet", id: 441258766
 mas "Pastebot", id: 1179623856
 mas "Slack", id: 803453959
+mas "Todoist", id: 585829637
+mas "TextSniper", id: 1528890965
 
 # Dev
 brew "python@3.9"
@@ -83,6 +85,7 @@ brew "gh"
 brew "git"
 brew "git-secrets"
 brew "go"
+brew "golangci-lint"
 brew "jq"
 brew "markdownlint-cli", link: true
 brew "node"
@@ -114,6 +117,7 @@ cask "docker"
 cask "google-cloud-sdk"
 
 # Security
+brew "checkov"
 brew "conftest"
 brew "opa"
 brew "pinentry-mac"
