@@ -77,3 +77,10 @@ alias git_branch_cleanup='git branch --merged | grep -v master >/tmp/merged-bran
 
 # fix crontab on OSX
 alias crontab="VIM_CRONTAB=true crontab"
+
+# python
+alias python='python3'
+
+# yq versions
+alias yq3='docker run -v $PWD:/mnt/current -w /mnt/current mikefarah/yq:3.3.4 yq'
+alias yq4='docker run -v $PWD:/mnt/current -w /mnt/current mikefarah/yq:4 yq'
