@@ -92,7 +92,7 @@ print_h1 "Installing Applications"
 # install applications
 print_yellow "Open the App Store and login to it before continuing. Press <enter> to continue"
 read
-brew bundle
+#brew bundle
 print_green "Done." && echo
 
 # ------------------------------------------------------------------------------
@@ -155,7 +155,7 @@ python3 -m pip install yq
 python3 -m pip install pynvim
 
 # ruby setup
-GLOBAL_RUBY_VERSION="2.7.2"
+GLOBAL_RUBY_VERSION="3.2.1"
 if [ "$(rbenv versions | grep -F ${GLOBAL_RUBY_VERSION} &> /dev/null)$?" -gt 0 ]; then
   rbenv install ${GLOBAL_RUBY_VERSION}
   rbenv global ${GLOBAL_RUBY_VERSION}
@@ -193,6 +193,7 @@ cd fonts
 cd ..
 rm -rf fonts
 rm -f One\ Dark.itermcolors
+
 echo
 print_yellow "IMPORTANT: Open iterm2 preferences (General > Preferences) and ensure you set 'Load preferences from ...' to $BASE_DIR/iterm so iterm2 settings are loaded"
 echo
@@ -203,5 +204,11 @@ source ~/.bash_profile
 set -eu
 print_green "Done."
 echo
+
+# open -a Magnet
+# open -a Pastebot
+# open -a TextSniper
+# open -a 'istat menus'
+# open -a 'Alfred 4'
 
 print_green "$(tput bold)All done! Enjoy!"

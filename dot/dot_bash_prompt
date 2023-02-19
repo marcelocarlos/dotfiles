@@ -80,7 +80,11 @@ function parse_git_info {
             branch="NO BRANCH"
         fi
 
-	echo "[git: ${branch}${remote}${state}] "
+	if [ "$branch" == "master" ]; then
+	   echo -ne "$RED[git: ${branch}${remote}${state}]$RESET "
+	else
+	   echo -ne "$GREEN[git: ${branch}${remote}${state}]$RESET "
+	fi
     fi
     return
 }
@@ -130,7 +134,7 @@ function get_ps1 {
     else
         EXIT_DISPLAY="${RED}$EXIT_STATUS${RESET}"
     fi
-    PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] - $(parse_user) - \D{%T} - ${EXIT_DISPLAY}] \[$YELLOW\]\$(parse_git_info)\$(gcloud_config) \$(k8s_context) \$(terraform_workspace)\[$BOLD\]\[$BLACK\]\n\$ \[$RESET\]"
+    PS1="\[$BOLD\]\[$GREEN\]\w\[$BLACK\] - $(parse_user) - \D{%T} - ${EXIT_DISPLAY}] \$(parse_git_info)\$(gcloud_config) \$(k8s_context) \$(terraform_workspace)\[$BOLD\]\[$BLACK\]\n\$ \[$RESET\]"
 }
 
 PROMPT_COMMAND=get_ps1

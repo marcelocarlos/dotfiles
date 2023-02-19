@@ -59,6 +59,8 @@ set number
 set cursorline
 " linebreaks
 set linebreak
+" ignore case in search
+set ignorecase
 " Show the (partial) command as it’s being typed
 set showcmd
 " Enhance command-line completion

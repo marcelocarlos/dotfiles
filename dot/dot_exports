@@ -45,6 +45,15 @@ export PATH="$(brew --prefix)/opt/gsed/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix)/opt/gawk/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix)/opt/findutils/libexec/gnubin:$PATH"
 export PATH="$(brew --prefix)/opt/gnu-which/libexec/gnubin:$PATH"
+# export PATH="$(brew --prefix openssl)/bin:$PATH"
+# export PATH="$(brew --prefix openssh)/bin:$PATH"
+
+# go bin
+export PATH="$HOME/go/bin:$PATH"
 
 # manpath
 export MANPATH="$(brew --prefix)/opt/coreutils/libexec/gnuman"
+
+
+# use gke auth plugin
+export USE_GKE_GCLOUD_AUTH_PLUGIN=True
