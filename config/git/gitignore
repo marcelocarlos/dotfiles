@@ -2,6 +2,12 @@
 .DS_Store
 Desktop.ini
 
+toolbox
+
+venv
+.venv
+.env
+
 # Thumbnail cache files
 ._*
 Thumbs.db

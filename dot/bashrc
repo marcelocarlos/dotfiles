@@ -1,4 +1,0 @@
-# Created by Marcelo Carlos (contact@marcelocarlos.com)
-# Source: https://github.com/marcelocarlosbr/dotfiles
-
-[ -n "$PS1" ] && source ~/.bash_profile

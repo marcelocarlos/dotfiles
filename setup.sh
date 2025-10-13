@@ -1,68 +1,55 @@
 #!/usr/bin/env bash
 # Created by Marcelo Carlos (contact@marcelocarlos.com)
 # Source: https://github.com/marcelocarlosbr/dotfiles
+#
+# Main setup script - orchestrates dotfiles installation
+
 set -euo pipefail
 
-SCRIPT_NAME=$(basename $0)
-BASE_DIR=$(dirname "$0")
-if [[ "$BASE_DIR" == "." ]] ; then
-    BASE_DIR=$(pwd)
-fi
-CMD_FLAGS=''
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR"
+
+source install/utils.sh
 
 # ------------------------------------------------------------------------------
-# Functions
+# Configuration
+# ------------------------------------------------------------------------------
+print_h1 "Dotfiles Setup"
+
+# Check if .dotfiles.conf exists, if not create from example
+if [ ! -f .dotfiles.conf ]; then
+    print_yellow "No .dotfiles.conf found. Creating from .dotfiles.conf.example"
+    cp .dotfiles.conf.example .dotfiles.conf
+    print_green "Created .dotfiles.conf"
+    echo ""
+    print_yellow "Please edit .dotfiles.conf to customize your installation"
+    print_yellow "Uncomment the features you want to enable, then re-run this script"
+    echo ""
+    exit 0
+fi
+
+# Load configuration
+source .dotfiles.conf
+
+# ------------------------------------------------------------------------------
+# Parse command line arguments
 # ------------------------------------------------------------------------------
 usage() {
     cat << EOF
-Usage: $SCRIPT_NAME [options]
+Usage: $(basename "$0") [options]
 
 Options:
-    -f          force, overwrite files without asking for confirmation
-    -h          show this menu
+    -h          Show this help menu
+
+Configuration:
+    Edit .dotfiles.conf to enable/disable features
+    Uncomment lines to enable specific installations and modules
 
 EOF
 }
 
-# $1 line (partials allowed)
-# $2 file
-contains_line() {
-  grep -q "$1" "$2"
-}
-
-print_h1() {
-  echo "$(tput bold)# ------------------------------------------------------------------------------$(tput sgr0)"
-  echo "$(tput bold)# $* $(tput sgr0)"
-  echo "$(tput bold)# ------------------------------------------------------------------------------$(tput sgr0)"
-}
-
-print_h2() {
-  echo "$(tput bold)## $* $(tput sgr0)"
-}
-
-print_green() {
-  echo "$(tput setaf 2)$* $(tput sgr0)"
-}
-
-print_yellow() {
-  echo "$(tput setaf 3)$* $(tput sgr0)"
-}
-
-function dotfiles_setup() {
-    for dotfile in $(ls -1 ${BASE_DIR}/dot); do
-      ln -sf ${CMD_FLAGS} "${BASE_DIR}/dot/$dotfile" "$HOME/.$dotfile"
-    done
-}
-
-# ------------------------------------------------------------------------------
-# Main
-# ------------------------------------------------------------------------------
-while getopts "hfl" OPTION
-do
+while getopts "h" OPTION; do
     case $OPTION in
-        f)
-            CMD_FLAGS='-f'
-            ;;
         h)
             usage
             exit 0
@@ -75,140 +62,91 @@ do
 done
 
 # ------------------------------------------------------------------------------
-# Installing pre-requisites
+# Run installation scripts based on configuration
 # ------------------------------------------------------------------------------
-print_h1 "Installing pre-requisites"
-# install homebrew if not installed yet
-if ! brew --version > /dev/null 2>&1; then
-  print_h2 "Installing Homebrew"
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-fi
-print_green "Done." && echo
 
-# ------------------------------------------------------------------------------
-# Installing Applications
-# ------------------------------------------------------------------------------
-print_h1 "Installing Applications"
-# install applications
-print_yellow "Open the App Store and login to it before continuing. Press <enter> to continue"
-read
-#brew bundle
-print_green "Done." && echo
-
-# ------------------------------------------------------------------------------
-# Dotfiles
-# ------------------------------------------------------------------------------
-print_h1 "Setting up Dotfiles"
-# Setup dotfile
-dotfiles_setup
-print_green "Done." && echo
-
-# ------------------------------------------------------------------------------
-# Finishing setup
-# ------------------------------------------------------------------------------
-print_h1 "Finishing setup"
-# Update default bash
-if ! contains_line "/usr/local/bin/bash" "/etc/shells"; then
-  echo "/usr/local/bin/bash" | sudo tee -a /etc/shells
-  chsh -s /usr/local/bin/bash
+# Core installations
+if [[ "${INSTALL_HOMEBREW:-}" == "true" ]]; then
+    bash install/homebrew.sh
 fi
 
-# post-setup - git
-SETUP_GIT_CONFIG='n'
-if [ -f "$HOME/.gitconfig.local" ]; then
-  read -p  "$HOME/.gitconfig.local already exists, do you want to re-create it? [Y/n] " ANSWER
-  if [ "$ANSWER" != "n" ]; then
-    SETUP_GIT_CONFIG='y'
-  fi
-else
-  SETUP_GIT_CONFIG='y'
-fi
-if [ ${SETUP_GIT_CONFIG} == 'y' ]; then
-  read -p "Git email address: " GIT_EMAIL
-  echo -e "[user]\nemail = $GIT_EMAIL" > ~/.gitconfig.local
-  read -p  "Setup GPG? [Y/n] " ANSWER
-  if [ "$ANSWER" != "n" ]; then
-    echo "Available GPG keys: "
-    gpg --list-secret-keys --keyid-format LONG
-    read -p "GPG signing key (value from 'sec', after '/'): " GPG_KEY
-    echo "signingkey = $GPG_KEY" >> ~/.gitconfig.local
-    echo -e "[commit]\ngpgsign = true" >> ~/.gitconfig.local
-    echo -e "[gpg]\nprogram = gpg" >> ~/.gitconfig.local
-  fi
+if [[ "${INSTALL_BASH:-}" == "true" ]]; then
+    bash install/bash.sh
 fi
 
-# remove quarantine from Quicklook plugins
-# xattr -r ~/Library/QuickLook # To see the attributes
-xattr -d -r com.apple.quarantine ~/Library/QuickLook
-qlmanage -r
-
-# remove quarantine from specific apps
-# xattr -r /Applications/ # To see all
-xattr -d -r com.apple.quarantine /Applications/BetterZip.app
-
-# python setup
-python3 -m pip install --upgrade setuptools
-python3 -m pip install --upgrade pip
-python3 -m pip install virtualenv
-python3 -m pip install yq
-# needed by vim plugin https://github.com/Shougo/deoplete.nvim
-python3 -m pip install pynvim
-
-# ruby setup
-GLOBAL_RUBY_VERSION="3.2.1"
-if [ "$(rbenv versions | grep -F ${GLOBAL_RUBY_VERSION} &> /dev/null)$?" -gt 0 ]; then
-  rbenv install ${GLOBAL_RUBY_VERSION}
-  rbenv global ${GLOBAL_RUBY_VERSION}
-fi
-eval "$(rbenv init -)"
-# Check that bundler is installed
-if [ "$(which bundle &> /dev/null)$?" -gt 0 ]; then
-  gem install bundler
-  rbenv rehash
-fi
-gem install rubocop
-
-# docker completions
-ln -sf /Applications/Docker.app/Contents/Resources/etc/docker.bash-completion /usr/local/etc/bash_completion.d/docker.bash-completion
-ln -sf /Applications/Docker.app/Contents/Resources/etc/docker-machine.bash-completion /usr/local/etc/bash_completion.d/docker-machine.bash-completion
-ln -sf /Applications/Docker.app/Contents/Resources/etc/docker-compose.bash-completion /usr/local/etc/bash_completion.d/docker-compose.bash-completion
-
-# git-secrets
-git secrets --register-aws --global
-
-# pinentry
-if ! contains_line "pinentry-program /usr/local/bin/pinentry-mac" "$HOME/.gnupg/gpg-agent.conf"; then
-  echo "pinentry-program /usr/local/bin/pinentry-mac" >> ~/.gnupg/gpg-agent.conf
+if [[ "${INSTALL_GIT_TOOLS:-}" == "true" ]]; then
+    bash install/git.sh
 fi
 
-# fzf
-$(brew --prefix)/opt/fzf/install
+# Language environments
+if [[ "${INSTALL_PYTHON:-}" == "true" ]]; then
+    bash install/python.sh
+fi
 
-# iterm2
-wget https://raw.githubusercontent.com/nathanbuchar/atom-one-dark-terminal/master/scheme/iterm/One%20Dark.itermcolors
-open One\ Dark.itermcolors
-git clone https://github.com/powerline/fonts.git --depth=1
-cd fonts
-./install.sh
-cd ..
-rm -rf fonts
-rm -f One\ Dark.itermcolors
+if [[ "${INSTALL_NODE:-}" == "true" ]]; then
+    bash install/node.sh
+fi
 
-echo
-print_yellow "IMPORTANT: Open iterm2 preferences (General > Preferences) and ensure you set 'Load preferences from ...' to $BASE_DIR/iterm so iterm2 settings are loaded"
-echo
+if [[ "${INSTALL_GO:-}" == "true" ]]; then
+    bash install/go.sh
+fi
 
-# apply the changes to the current session
-set +eu
-source ~/.bash_profile
-set -eu
-print_green "Done."
-echo
+if [[ "${INSTALL_RUBY:-}" == "true" ]]; then
+    bash install/ruby.sh
+fi
 
-# open -a Magnet
-# open -a Pastebot
-# open -a TextSniper
-# open -a 'istat menus'
-# open -a 'Alfred 4'
+# Applications
+if [[ "${INSTALL_ITERM:-}" == "true" ]]; then
+    bash install/iterm.sh
+fi
 
-print_green "$(tput bold)All done! Enjoy!"
+if [[ "${INSTALL_FONTS:-}" == "true" ]]; then
+    bash install/fonts.sh
+fi
+
+# macOS System Preferences
+if [[ "${INSTALL_MACOS_SETTINGS:-}" == "true" ]]; then
+    bash install/macos-settings.sh
+fi
+
+# Features
+if [[ "${ENABLE_GPG:-}" == "true" ]]; then
+    bash install/gpg.sh
+fi
+
+# QuickLook plugins (run if any were installed via Brewfile)
+if command_exists qlmanage && [ -d "$HOME/Library/QuickLook" ]; then
+    bash install/quicklook.sh
+fi
+
+# ------------------------------------------------------------------------------
+# Git Hooks (Optional)
+# ------------------------------------------------------------------------------
+if [[ "${SETUP_GIT_HOOKS:-}" == "true" ]]; then
+    echo ""
+    print_h2 "Setting up git hooks for secret scanning"
+    bash scripts/setup-git-hooks.sh
+fi
+
+# ------------------------------------------------------------------------------
+# Summary
+# ------------------------------------------------------------------------------
+echo ""
+print_h1 "Setup Complete!"
+echo ""
+print_green "Your dotfiles have been configured successfully."
+echo ""
+print_yellow "Next steps:"
+echo "  1. Restart your terminal or run: source ~/.bash_profile"
+echo "  2. Customize ~/.bashrc.local for machine-specific settings"
+echo "  3. Edit .dotfiles.conf to enable/disable features"
+echo ""
+
+# Suggest setting up git hooks if not already done
+if [[ "${SETUP_GIT_HOOKS:-}" != "true" ]] && [ ! -f .git/hooks/pre-commit ]; then
+    print_yellow "Optional: Setup git hooks to prevent committing secrets"
+    echo "  bash scripts/setup-git-hooks.sh"
+    echo ""
+fi
+
+print_green "Enjoy your new environment!"

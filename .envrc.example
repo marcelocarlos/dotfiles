@@ -1,0 +1,70 @@
+# Example .envrc file for direnv
+# Created by Marcelo Carlos (contact@marcelocarlos.com)
+# Source: https://github.com/marcelocarlosbr/dotfiles
+#
+# Copy this file to .envrc in your project directory and customize as needed
+# Run `direnv allow` to activate it
+
+# ------------------------------------------------------------------------------
+# AWS Configuration
+# ------------------------------------------------------------------------------
+# export AWS_PROFILE=myprofile
+# export AWS_REGION=us-east-1
+# export AWS_DEFAULT_REGION=us-east-1
+
+# ------------------------------------------------------------------------------
+# GCP Configuration
+# ------------------------------------------------------------------------------
+# export CLOUDSDK_ACTIVE_CONFIG_NAME=myproject
+# export CLOUDSDK_CORE_PROJECT=my-gcp-project
+# export GCLOUD_PROJECT=my-gcp-project
+
+# ------------------------------------------------------------------------------
+# Database
+# ------------------------------------------------------------------------------
+# export DATABASE_URL=postgresql://localhost:5432/mydb
+# export REDIS_URL=redis://localhost:6379
+
+# ------------------------------------------------------------------------------
+# Application Settings
+# ------------------------------------------------------------------------------
+# export NODE_ENV=development
+# export DEBUG=true
+# export LOG_LEVEL=debug
+# export PORT=3000
+
+# ------------------------------------------------------------------------------
+# API Keys & Secrets
+# ------------------------------------------------------------------------------
+# IMPORTANT: Never commit .envrc files with real secrets to git!
+# export API_KEY=your-api-key-here
+# export SECRET_TOKEN=your-secret-token
+
+# ------------------------------------------------------------------------------
+# Language-specific
+# ------------------------------------------------------------------------------
+# Python
+# export PYTHONPATH="${PWD}/src:${PYTHONPATH}"
+# export VIRTUAL_ENV="${PWD}/.venv"
+
+# Node.js
+# export NODE_OPTIONS="--max-old-space-size=4096"
+# export NPM_TOKEN=your-npm-token
+
+# Go
+# export GOPATH="${PWD}/.go"
+# export GO111MODULE=on
+
+# ------------------------------------------------------------------------------
+# Custom PATH additions
+# ------------------------------------------------------------------------------
+# Add project-specific binaries to PATH
+# PATH_add bin
+# PATH_add node_modules/.bin
+
+# ------------------------------------------------------------------------------
+# Load from .env file (if you have one)
+# ------------------------------------------------------------------------------
+# if [ -f .env ]; then
+#     dotenv .env
+# fi

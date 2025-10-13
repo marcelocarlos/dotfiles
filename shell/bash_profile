@@ -1,0 +1,104 @@
+#!/usr/bin/env bash
+# Created by Marcelo Carlos (contact@marcelocarlos.com)
+# Source: https://github.com/marcelocarlosbr/dotfiles
+#
+# Main bash profile - sources modular shell configurations
+
+# ------------------------------------------------------------------------------
+# Determine dotfiles directory
+# ------------------------------------------------------------------------------
+# Get the directory where this script is located
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+
+# ------------------------------------------------------------------------------
+# Load configuration
+# ------------------------------------------------------------------------------
+# Load .dotfiles.conf if it exists, otherwise use defaults
+if [ -f "$DOTFILES_DIR/.dotfiles.conf" ]; then
+    source "$DOTFILES_DIR/.dotfiles.conf"
+else
+    # Default configuration (enable core modules)
+    LOAD_EXPORTS=true
+    LOAD_ALIASES=true
+    LOAD_FUNCTIONS=true
+    LOAD_PROMPT=true
+fi
+
+# ------------------------------------------------------------------------------
+# Shell options
+# ------------------------------------------------------------------------------
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Append to the Bash history file, rather than overwriting it
+shopt -s histappend
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# Save all lines of a multiple-line command in the same history entry
+shopt -q -s cmdhist
+
+# Make sure display get updated when terminal window get resized
+shopt -q -s checkwinsize
+
+# ------------------------------------------------------------------------------
+# Load shell modules
+# ------------------------------------------------------------------------------
+# Always load exports first (contains PATH and environment variables)
+[[ "$LOAD_EXPORTS" == "true" ]] && source "$DOTFILES_DIR/shell/exports.sh"
+
+# Load optional modules based on configuration
+[[ "$LOAD_ALIASES" == "true" ]] && source "$DOTFILES_DIR/shell/aliases.sh"
+[[ "$LOAD_FUNCTIONS" == "true" ]] && source "$DOTFILES_DIR/shell/functions.sh"
+[[ "$LOAD_PROMPT" == "true" ]] && source "$DOTFILES_DIR/shell/prompt.sh"
+[[ "$LOAD_COMPLETIONS" == "true" ]] && source "$DOTFILES_DIR/shell/completions.sh"
+
+# ------------------------------------------------------------------------------
+# Tool initialization
+# ------------------------------------------------------------------------------
+# Initialize rbenv if enabled
+if [[ "$ENABLE_RBENV" == "true" ]] && command -v rbenv &> /dev/null; then
+    eval "$(rbenv init -)"
+fi
+
+# Initialize FZF if enabled
+if [[ "$ENABLE_FZF" == "true" ]] && [ -f ~/.fzf.bash ]; then
+    source ~/.fzf.bash
+fi
+
+# Initialize GPG if enabled
+if [[ "$ENABLE_GPG" == "true" ]] && command -v gpg &> /dev/null; then
+    export GPG_TTY=$(tty)
+    gpg-connect-agent updatestartuptty /bye >/dev/null 2>&1
+fi
+
+# Initialize GCP tools if enabled
+if [[ "$ENABLE_GCP" == "true" ]] && [ -f "$(brew --prefix)/Caskroom/gcloud-cli/latest/google-cloud-sdk/path.bash.inc" ]; then
+    source "$(brew --prefix)/Caskroom/gcloud-cli/latest/google-cloud-sdk/path.bash.inc"
+fi
+
+# Initialize direnv if available
+if command -v direnv &> /dev/null; then
+    eval "$(direnv hook bash)"
+fi
+
+# OrbStack integration
+if [ -f ~/.orbstack/shell/init.bash ]; then
+    source ~/.orbstack/shell/init.bash 2>/dev/null || :
+fi
+
+# ------------------------------------------------------------------------------
+# System information
+# ------------------------------------------------------------------------------
+# Print the number of failed login attempts (Linux only)
+if [ -f "/var/log/auth.log" ]; then
+    echo -e "Failed login attempts: $(grep 'Failed password' /var/log/auth.log* 2>/dev/null | wc -l)"
+fi
+
+# ------------------------------------------------------------------------------
+# Local customizations
+# ------------------------------------------------------------------------------
+# Source local overrides (not tracked in git)
+# Use this for machine-specific settings, company paths, etc.
+[ -f "$HOME/.bashrc.local" ] && source "$HOME/.bashrc.local"

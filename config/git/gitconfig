@@ -28,18 +28,15 @@
 
 [core]
   # Use custom `.gitignore` and `.gitattributes`
-  excludesfile = ~/.gitignore
+  # Note: excludesfile path is set dynamically by install/git.sh
   attributesfile = ~/.gitattributes
   # Treat spaces before tabs, lines that are indented with 8 or more spaces, and all kinds of trailing whitespace as an error
   whitespace = space-before-tab,indent-with-non-tab,trailing-space
-  # allowing line wrapping when using diff
-  pager = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
 
 [pager]
   # use line oriented diffs, which are great for reviewing code
-  log = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-  show = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
-  diff = /usr/local/share/git-core/contrib/diff-highlight/diff-highlight | less
+  log = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less
+  show = /opt/homebrew/share/git-core/contrib/diff-highlight/diff-highlight | less
 
 [color]
   ui = always
@@ -80,3 +77,5 @@
 
 [url "git@github.com:"]
 	insteadOf = https://github.com/
+
+# Additional GPG and URL configurations can be added to ~/.gitconfig.local

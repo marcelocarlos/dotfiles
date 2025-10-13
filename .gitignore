@@ -1,8 +1,55 @@
-vim/swaps/
-todo/*.txt
-todo/*.bak
-dotfile_src_private
-vim/plugged
-vim/autoload
+# Local configuration (created from .dotfiles.conf.example)
+.dotfiles.conf
+
+# Local overrides (not tracked)
+.bashrc.local
+.gitconfig.local
+
+# direnv per-directory environment files
+.envrc
+
+# Claude Code settings
+.claude/
+
+# Temporary migration directory
+old_stuff/
+
+# Dotfiles runtime data (backups, cache, etc.)
+.dotfiles/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Thumbnails
+._*
+
+# Files that might appear in the root of a volume
+.DocumentRevisions-V100
+.fseventsd
+.Spotlight-V100
+.TemporaryItems
+.Trashes
+.VolumeIcon.icns
+.com.apple.timemachine.donotpresent
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
+
+# Homebrew
 Brewfile.lock.json
+
+# Temporary downloads
 *.itermcolors
+fonts/
+
+# Build artifacts
+*.dccache
+
+# Temp
+RELEASE_PLAN.md

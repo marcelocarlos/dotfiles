@@ -1,0 +1,58 @@
+# Dotfiles Configuration
+# Created by Marcelo Carlos (contact@marcelocarlos.com)
+# Source: https://github.com/marcelocarlosbr/dotfiles
+#
+# Copy this file to .dotfiles.conf and customize for your machine
+# Uncomment lines to enable features
+
+# ------------------------------------------------------------------------------
+# Installation Options
+# ------------------------------------------------------------------------------
+# Core installation (recommended)
+INSTALL_HOMEBREW=true
+INSTALL_BASH=true
+INSTALL_GIT_TOOLS=true
+
+# Language environments (uncomment if needed)
+# INSTALL_PYTHON=true
+# INSTALL_NODE=true
+# INSTALL_GO=true
+# INSTALL_RUBY=true
+
+# Applications (uncomment if needed)
+INSTALL_ITERM=true
+# INSTALL_FONTS=true
+
+# macOS System Preferences (uncomment if needed)
+INSTALL_MACOS_SETTINGS=true
+
+# ------------------------------------------------------------------------------
+# Shell Module Options
+# ------------------------------------------------------------------------------
+# Core modules (recommended)
+LOAD_EXPORTS=true
+LOAD_ALIASES=true
+LOAD_FUNCTIONS=true
+LOAD_PROMPT=true
+
+# Optional modules
+LOAD_COMPLETIONS=true
+
+# ------------------------------------------------------------------------------
+# Feature Toggles
+# ------------------------------------------------------------------------------
+# Tools
+ENABLE_FZF=true
+# ENABLE_GPG=true
+# ENABLE_RBENV=true
+
+# Cloud providers
+# ENABLE_GCP=true
+
+# Security
+SETUP_GIT_HOOKS=true    # Setup git-secrets pre-commit hooks
+
+# ------------------------------------------------------------------------------
+# Local Customizations
+# ------------------------------------------------------------------------------
+# Add machine-specific settings to ~/.bashrc.local (not tracked by git)
