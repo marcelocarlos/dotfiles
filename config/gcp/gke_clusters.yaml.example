@@ -1,0 +1,28 @@
+# ------------------------------------------------------------------------------
+# GKE Cluster Configuration
+# ------------------------------------------------------------------------------
+#
+# This file defines the GKE clusters to be configured with kubectl.
+#
+# Instructions:
+# 1. Copy this file to "gke_clusters.yaml" in the same directory.
+# 2. Replace the placeholder values with your actual cluster details.
+# 3. Add or remove cluster entries as needed.
+#
+# The script will iterate through this list and run:
+# - gcloud container clusters get-credentials
+# - kubectl config rename-context
+#
+# This provides a consistent and automated way to manage your GKE contexts.
+#
+# ------------------------------------------------------------------------------
+
+clusters:
+  - name: "primary"
+    project: "your-gcp-project-id"
+    region: "us-central1"
+    alias: "gke-primary-us-central1"
+  - name: "secondary"
+    project: "your-gcp-project-id"
+    zone: "us-west1-a"
+    alias: "gke-secondary-us-west1"

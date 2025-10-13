@@ -114,6 +114,10 @@ if [[ "${ENABLE_GPG:-}" == "true" ]]; then
     bash install/gpg.sh
 fi
 
+if [[ "${ENABLE_GCP:-}" == "true" ]]; then
+    bash install/gcp.sh
+fi
+
 # QuickLook plugins (run if any were installed via Brewfile)
 if command_exists qlmanage && [ -d "$HOME/Library/QuickLook" ]; then
     bash install/quicklook.sh

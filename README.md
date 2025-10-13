@@ -119,6 +119,17 @@ See [Brewfile](./Brewfile) for browsers, productivity apps, cloud tools (AWS, GC
 
 ## Customization Guide
 
+### GKE Cluster Configuration
+
+Automate `kubectl` configuration for your GKE clusters. Define your clusters in a YAML file, and the setup script will automatically fetch credentials and set up user-friendly context names.
+
+1. **Enable GCP**: Uncomment `ENABLE_GCP=true` in your `.dotfiles.conf`.
+2. **Create Config**: Copy `config/gcp/gke_clusters.yaml.example` to `config/gcp/gke_clusters.yaml`.
+3. **Define Clusters**: Edit `gke_clusters.yaml` to define your clusters, projects, and context aliases.
+4. **Run Setup**: Execute `./setup.sh`.
+
+The script will handle the rest, providing a consistent and automated way to manage your GKE contexts.
+
 ### Adding Custom Scripts
 
 Place custom install scripts in `install/` and call them from `setup.sh`:

@@ -44,6 +44,9 @@ Temporary Items
 # Homebrew
 Brewfile.lock.json
 
+# Cloud configuration
+config/gcp/gke_clusters.yaml
+
 # Temporary downloads
 *.itermcolors
 fonts/

@@ -189,6 +189,7 @@ cask "whatsapp"
 
 # Productivity
 # cask "alfred"
+cask "raycast"
 # cask "todoist"
 cask "notion"
 cask "notion-calendar"
@@ -199,6 +200,7 @@ cask "caffeine"
 # cask "istat-menus"
 # cask "betterdisplay"
 # cask "little-snitch"
+cask "dbeaver-community"
 
 # QuickLook Plugins
 # cask "qlcolorcode"
@@ -232,9 +234,8 @@ cask "spotify"
 # cask "basictex"
 # cask "tex-live-utility"
 
-# ------------------------------------------------------------------------------
 # Mac App Store
-# ------------------------------------------------------------------------------
-mas "Magnet", id: 441258766
-mas "Pastebot", id: 1179623856
+# mas "Magnet", id: 441258766
+# mas "Pastebot", id: 1179623856
 mas "TextSniper", id: 1528890965
+mas "Gifox", id: 1461845568

@@ -47,7 +47,7 @@ ENABLE_FZF=true
 # ENABLE_RBENV=true
 
 # Cloud providers
-# ENABLE_GCP=true
+# ENABLE_GCP=true         # Installs gcloud components via install/gcp.sh
 
 # Security
 SETUP_GIT_HOOKS=true    # Setup git-secrets pre-commit hooks
