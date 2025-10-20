@@ -195,6 +195,9 @@ cask "notion"
 cask "notion-calendar"
 cask "linear-linear"
 
+# Home Automation
+cask "home-assistant"
+
 # Utilities
 cask "caffeine"
 # cask "istat-menus"

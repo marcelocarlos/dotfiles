@@ -58,6 +58,19 @@ sudo chflags nohidden /Volumes 2>/dev/null || true
 print_green "Finder settings configured"
 
 # ------------------------------------------------------------------------------
+# Screenshots Settings
+# ------------------------------------------------------------------------------
+print_h2 "Configuring Screenshots"
+
+# Create screenshots directory
+mkdir -p "${HOME}/Pictures/Screenshots"
+
+# Set screenshots location
+defaults write com.apple.screencapture location -string "${HOME}/Pictures/Screenshots"
+
+print_green "Screenshots settings configured"
+
+# ------------------------------------------------------------------------------
 # Keyboard Settings
 # ------------------------------------------------------------------------------
 print_h2 "Configuring Keyboard"
